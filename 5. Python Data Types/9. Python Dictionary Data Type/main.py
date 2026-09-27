@@ -158,28 +158,125 @@ student = {"id": 1, "name": "Karim", "pass": True}  # বিভিন্ন ট�
 
 
 
-ডেটা অ্যাক্সেস এবং মডিফিকেশন (Basic Operations)
-ভ্যালু পড়া: স্কয়ার ব্র্যাকেট student["name"] অথবা সেইফ মেথড student.get("name") ব্যবহার করে ভ্যালু পাওয়া যায়।
-
-নতুন ডেটা যোগ বা আপডেট: student["city"] = "Dhaka" লিখে নতুন কি-ভ্যালু যোগ করা যায় অথবা পুরনো কি-এর মান বদলে দেওয়া যায়।
-
-ডেটা ডিলিট: del student["age"] অথবা .pop("course") ব্যবহার করে যেকোনো কি-ভ্যালু পেয়ার রিমুভ করা যায়।
 
 
-# একটি ডিকশনারি তৈরি করা হলো
-user = {"name": "Rahim", "age": 25}
+ভ্যারিয়েবলে ডেটা রেখে নতুন মান যোগ করা বা পুরনো মান পরিবর্তন করা খুবই সহজ। 
+যখন ডিকশনারির কোনো কি (Key)-তে নতুন মান অ্যাসাইন করেন,
+তখন পাইথন স্বয়ংক্রিয়ভাবে বুঝে নেয়—সেটি নতুন হলে যোগ করতে হবে, আর পুরনো হলে আপডেট করে দিতে হবে।
 
-# ১. নতুন ভ্যালু যোগ করা (পরিবর্তনশীলতার প্রমাণ)
-user["city"] = "Dhaka"
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
 
-# ২. বিদ্যমান ভ্যালু আপডেট করা
-user["age"] = 26
+print("আগে:", student)
 
-# ৩. কোনো কি (Key) ডিলিট করা
-del user["name"]
+# ১. ভ্যারিয়েবলে নতুন মান রেখে সেটি ডিকশনারিতে যোগ করা
+new_city = "Rangpur"
+student["city"] = new_city  # এটি একদম শেষে যুক্ত হবে
 
-print(user)
-# আউটপুট: {'age': 26, 'city': 'Dhaka'}
+
+# ২. ভ্যারিয়েবলে নতুন বয়স রেখে পুরনো বয়স আপডেট করা
+updated_age = 31
+student["age"] = updated_age  # পুরনো 30 কেটে গিয়ে 31 বসে যাবে
+
+
+print("পরে (আপডেটের পর):", student)
+
+
+
+
+পাইথনের আধুনিক ভার্সনগুলোতে (Python 3.7 বা তার পরের সব ভার্সনে) 
+ডিকশনারি ইনসার্শন অর্ডার (Insertion Order) মেইনটেইন করে। অর্থাৎ, আপনি নতুন কোনো কি-ভ্যালু যেভাবে যোগ করবেন, 
+সেটি ডিকশনারির একদম শেষেই গিয়ে যুক্ত হবে—ঠিক যেমন লিস্টে .append() করলে শেষে যুক্ত হয়।
+
+student = {
+  'name' : 'Abdullah',
+  'age' : 30,
+  'cgpa' : 3.63,
+  "course": "Python Backend"
+}
+print(student)
+
+student["city"] = "Rangpur"
+
+print(student)
+
+
+
+
+
+ডিকশনারি থেকে ভ্যালু এক্সেস করার সময় যদি এমন কোনো Key খোঁজেন যা ডিকশনারিতে নেই, 
+তখন স্কয়ার ব্র্যাকেট [] ব্যবহার করলে কোড ক্র্যাশ করে (KeyError দেয়)। কিন্তু .get() ব্যবহার করলে 
+কোড ক্র্যাশ না করে নিরাপদে None রিটার্ন করে (অথবা আপনি চাইলে নিজের মতো ডিফল্ট মান সেট করে দিতে পারেন)।
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+# ১. স্কয়ার ব্র্যাকেট দিয়ে ভ্যারিয়েবলে রাখা
+student_name = student["name"]
+print(student_name)  # আউটপুট: Abdullah
+
+
+# ২. .get() মেথড ব্যবহার করে ভ্যারিয়েবলে রাখা
+student_cgpa = student.get("cgpa")
+print(student_cgpa)  # আউটপুট: 3.63
+
+
+# ৩. এমন একটি Key খোঁজা যা ডিকশনারিতে নেই (.get() এর জাদু)
+# যদি 'email' না থাকে, তবে কোড এরর না দিয়ে None রিটার্ন করবে এবং ভ্যারিয়েবলে জমা হবে
+student_email = student.get("email")
+print(student_email)  # আউটপুট: None
+
+
+# ৪. .get() এ ডিফল্ট ভ্যালু সেট করে দেওয়া (Key না থাকলে এটি দেখাবে)
+student_phone = student.get("phone", "Not Available")
+print(student_phone)  # আউটপুট: Not Available
+
+
+
+
+ডিকশনারি থেকে ডেটা ডিলিট করার জন্য মূলত দুটি জনপ্রিয় উপায় রয়েছে: del স্টেটমেন্ট এবং .pop() মেথড।
+
+del স্টেটমেন্ট এবং .pop() মেথড।
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+print("Before deletion:", student)
+
+# ১. del ব্যবহার করে সরাসরি নির্দিষ্ট কি-ভ্যালু ডিলিট করা
+del student["age"]
+
+print("After deleting 'age':", student)
+
+# ২. .pop() ব্যবহার করে ডিলিট করা এবং রিমুভ হওয়া ভ্যালু ভ্যারিয়েবলে রেখে দেওয়া
+removed_course = student.pop("course")
+
+print("Removed course value was:", removed_course)
+print("After using pop():", student)
+
+
+এই দুইটির মধ্যে পার্থক্য কী?
+del student["age"]: এটি শুধু ডিলিট করে দেয়, রিমুভ হওয়া ভ্যালুটি কোথাও সেভ করে রাখে না।
+
+student.pop("course"): এটি ডিলিট করার পাশাপাশি ওই ভ্যালুটি রিটার্ন করে, 
+যা চাইলে কোনো ভ্যারিয়েবলে (removed_course) রেখে দিতে পারেন।
+
+
+
 
 
 পাইথনে ডিকশনারি (Dictionary) হলো পরিবর্তনশীল বা Mutable।
@@ -200,6 +297,19 @@ print(student)
 
 print(student["name"])  # আউটপুট: Abdullah
 print(student["cgpa"])  # আউটপুট: 3.63
+
+
+
+student = {
+  'name' : 'Abdullah',
+  'age' : 30,
+  'cgpa' : 3.63,
+  "course": "Python Backend"
+}
+
+result = student['name']
+
+print(result)
 
 ⚠️ বিশেষ সতর্কতা (KeyError):
 যদি এমন কোনো Key দিয়ে ডিকশনারি থেকে মান খুঁজতে চান যা ডিকশনারির ভেতরে নেই, তবে পাইথন ক্র্যাশ করবে এবং KeyError দিবে। 
@@ -231,10 +341,46 @@ print(person.get("salary", "N/A"))   # N/A   (default value দেওয়া �
 get() মেথড দিয়ে access করলে key না থাকলেও প্রোগ্রাম crash করে না, বরং None অথবা নিজের দেওয়া default মান রিটার্ন করে। 
 এটা backend code এ best practice।
 
+student = {
+  'name' : 'Abdullah',
+  'age' : 30,
+  'cgpa' : 3.63,
+  "course": "Python Backend"
+}
 
-Dictionary ভেতরে সাধারণ লিস্ট বা স্ট্রিংয়ের মতো ফিক্সড কোনো ইনডেক্স (0, 1, 2...) থাকে না। ডিকশনারির ক্ষেত্রে Key ই হলো তার কাস্টম ইনডেক্স।
+result = student.get('salary')
+
+print(result)
+
+
+
+
+
+Dictionary ভেতরে সাধারণ লিস্ট বা স্ট্রিংয়ের মতো ফিক্সড কোনো ইনডেক্স (0, 1, 2...) থাকে না। 
+ডিকশনারির ক্ষেত্রে Key ই হলো তার কাস্টম ইনডেক্স।
 
 ডিকশনারির কি-গুলোকে আগে একটি List-এ রূপান্তর করে নিতে হয়। এরপর .index() মেথড ব্যবহার করলেই ইনডেক্স পেয়ে যাবেন।
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+# 1. Convert dictionary keys into a list
+keys_list = list(student.keys())
+print("Keys List:", keys_list)
+
+# 2. Find the index of a specific key using .index()
+# Let's find the index of 'cgpa'
+cgpa_index = keys_list.index("cgpa")
+print("Index of 'cgpa':", cgpa_index)
+
+# Let's find the index of 'course'
+course_index = keys_list.index("course")
+print("Index of 'course':", course_index)
+
 
 
 student = {
@@ -254,23 +400,24 @@ print("Age Key Index:", age_index)
 
 
 
-Dictionary এর মান পরিবর্তন করা (Mutable Property)
-
-person = {"name": "Rahim", "age": 25}
-
-person["age"] = 26          # পুরনো value পরিবর্তন
-print(person)  # {'name': 'Rahim', 'age': 26}
 
 
+ডিকশনারি যে Mutable (পরিবর্তনশীল), অর্থাৎ এটি তৈরি করার পরেও এর ভেতরের মান পরিবর্তন করা যায়,
 
-নতুন Key-Value যোগ করা
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
 
-person = {"name": "Rahim", "age": 25}
+print("Before modification:", student)
 
-person["city"] = "Dhaka"    # নতুন key-value যোগ হচ্ছে
-print(person)  # {'name': 'Rahim', 'age': 25, 'city': 'Dhaka'}
+# Modifying existing values (Mutating the dictionary)
+student['age'] = 31
+student['cgpa'] = 3.80
 
-⚠️  — Dictionary তে নতুন item যোগ করতে append() লাগে না (List এর মতো), শুধু নতুন key বসিয়ে value assign করলেই যোগ হয়ে যায়।
+print("After modification (Mutable property):", student)
 
 
 
@@ -278,15 +425,74 @@ print(person)  # {'name': 'Rahim', 'age': 25, 'city': 'Dhaka'}
 
 মূল ডাটা দেখার মেথডসমূহ (keys, values, items)
 
-.keys(): ডিকশনারির ভেতরে থাকা সব কয়টি Key রিটার্ন করে।
+ডিকশনারির .keys() মেথড ব্যবহার করে কীভাবে সবকটি Key আলাদা করে বের করা যায়
 
-.values(): ডিকশনারির ভেতরে থাকা সব কয়টি Value রিটার্ন করে।
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
 
-.items(): প্রতিটি Key এবং Value-কে জোড়া বা টুপল (Tuple) আকারে রিটার্ন করে (লুপ চালানোর সময় এটি সবচেয়ে বেশি লাগে)।
+# Using .keys() to get all the keys from the dictionary
+dictionary_keys = student.keys()
+
+print("All keys:", dictionary_keys)
+
+# Iterating through the keys using a loop
+print("\nLooping through keys:")
+for key in student.keys():
+    print(key)
+
+
+
+ডিকশনারির .values() মেথড ব্যবহার করে কীভাবে ডিকশনারির ভেতরে থাকা সবকটি Value আলাদা করে বের করা যায়
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+# Using .values() to get all the values from the dictionary
+dictionary_values = student.values()
+
+print("All values:", dictionary_values)
+
+# Iterating through the values using a loop
+print("\nLooping through values:")
+for value in student.values():
+    print(value)
+
+
+
+.items(): 
+
+ডিকশনারির সবচেয়ে কার্যকরী এবং সবচেয়ে বেশি ব্যবহৃত মেথড হলো .items()।
+এটি ডিকশনারির প্রতিটি Key এবং Value-কে জোড়ায় জোড়ায় (Tuple আকারে) রিটার্ন করে। 
+লুপ চালানোর সময় এটি দিয়ে খুব সহজেই কি ও ভ্যালু আলাদা করে ফেলা যায়।
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+# Using .items() to get all key-value pairs as tuples
+dictionary_items = student.items()
+print("All items (as tuples):", dictionary_items)
+
+# Iterating through items using a loop (Most commonly used in real projects)
+print("\nLooping through items (Key and Value together):")
+for key, value in student.items():
+    print(f"Key: {key} ==> Value: {value}")
+
 
 
 student = {"name": "Abdullah", "age": 22, "cgpa": 3.75}
-
 print(student.keys())    # আউটপুট: dict_keys(['name', 'age', 'cgpa'])
 print(student.values())  # আউটপুট: dict_values(['Abdullah', 22, 3.75])
 print(student.items())   # আউটপুট: dict_items([('name', 'Abdullah'), ('age', 22), ('cgpa', 3.75)])
@@ -300,8 +506,6 @@ print(student.items())   # আউটপুট: dict_items([('name', 'Abdullah'),
 কেন ব্যবহার করবেন? সাধারণ নিয়মে student["address"] লিখলে কি (Key) না থাকলে কোড ক্রাশ 
 করে বা KeyError দেয়। কিন্তু .get("address") ব্যবহার করলে কি না থাকলে কোনো এরর না দিয়ে শান্তশিষ্টভাবে None রিটার্ন করে।
 
-
-
 student = {"name": "Abdullah", "age": 30}
 
 # .get ব্যবহার করার সুবিধা
@@ -309,11 +513,36 @@ print(student.get("age"))      # আউটপুট: 30
 print(student.get("address"))  # আউটপুট: None (কোনো এরর দেবে না)
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+# 1. Using .get() for an existing key
+student_name = student.get("name")
+print("Name:", student_name)
+
+# 2. Using .get() for a non-existing key (Returns None instead of crashing)
+student_email = student.get("email")
+print("Email (Not in dict):", student_email)
+
+# 3. Using .get() with a default value if the key is not found
+student_phone = student.get("phone", "Not Provided")
+print("Phone with default value:", student_phone)
+
+
+
+
 
 
 
 ডাটা আপডেট বা যোগ করার মেথড (update)
-.update(): দুটি ডিকশনারি একত্র করতে বা নতুন কোনো কি-ভ্যালু জোড়া একসাথে যোগ করতে এটি ব্যবহৃত হয়।
+
+ডিকশনারির .update() মেথডটি একসাথে একাধিক ডেটা আপডেট করতে বা নতুন ডেটা যোগ করতে জাদুর মতো কাজ করে।
+যদি কি (Key) আগে থেকেই থাকে, 
+তবে তার মান আপডেট হয়ে যায়; আর যদি না থাকে, তবে তা নতুন কি-ভ্যালু হিসেবে ডিকশনারির একদম শেষে যুক্ত হয়ে যায়।
 
 
 user = {"name": "Karim"}
@@ -326,9 +555,64 @@ print(user)
 # আউটপুট: {'name': 'Karim', 'age': 25, 'city': 'Dhaka'}
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+print("Before update:", student)
+
+# Using .update() to modify existing values ('age', 'cgpa') 
+# and add new key-value pairs ('city', 'country') at the same time
+student.update({
+    "age": 31, 
+    "cgpa": 3.80, 
+    "city": "Rangpur", 
+    "country": "Bangladesh"
+})
+
+print("After update:", student)
+
+
+# Base student dictionary
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63
+}
+
+# Additional info dictionary that we want to merge
+additional_info = {
+    "course": "Python Backend",
+    "city": "Rangpur",
+    "cgpa": 3.80  # Existing key: will be updated/overwritten
+}
+
+print("Before merging:", student)
+
+# Merging 'additional_info' into 'student' using .update()
+student.update(additional_info)
+
+print("After merging (Dictionaries combined & updated):", student)
+
+
+Before merging: {'name': 'Abdullah', 'age': 30, 'cgpa': 3.63}
+After merging (Dictionaries combined & updated): {'name': 'Abdullah', 'age': 30, 'cgpa': 3.8, 'course': 'Python Backend', 'city': 'Rangpur'}
+
+১. additional_info ডিকশনারির নতুন কিগুলো (course এবং city) মূল student ডিকশনারির একেবারে শেষে যুক্ত হয়ে গেছে।
+২. cgpa কি-টি আগে থেকেই student-এ ছিল (3.63), কিন্তু .update() রান করার পর সেটি ওভাররাইট হয়ে নতুন মান (3.80) হয়ে গেছে।
+
+এভাবেই .update() দিয়ে খুব সহজে একাধিক ডিকশনারি মার্জ করা যায়।
+
+
+
+
 
 দুটি ডিকশনারি একসাথে জোড়া লাগানো (Merge)
-ধরে নিন আপনার কাছে ইউজারের বেসিক ইনফো আছে, আর আলাদা একটি ডিকশনারিতে তার প্রফেশনাল ইনফো আছে। আপনি চাচ্ছেন দুটিকে একত্র করতে:
+ধরে নিন কাছে ইউজারের বেসিক ইনফো আছে, আর আলাদা একটি ডিকশনারিতে তার প্রফেশনাল ইনফো আছে। 
+চাচ্ছেন দুটিকে একত্র করতে:
 
 
 user_info = {"name": "Abdullah", "age": 22}
@@ -376,10 +660,33 @@ print(profile)
 
 
 
-ডিকশনারির .pop() মেথডের মূল কাজ হলো ডিকশনারি থেকে নির্দিষ্ট কোনো Key এবং তার পেছনের Value-কে রিমুভ বা মুছে ফেলা।
 
+ডিকশনারির .pop() মেথডের মূল কাজ হলো ডিকশনারি থেকে নির্দিষ্ট কোনো Key এবং তার পেছনের Value-কে রিমুভ বা মুছে ফেলা।
 এর একটি বিশেষ সুবিধা হলো—ডিকশনারি থেকে কি-টি মুছে ফেলার 
-পাশাপাশি এটি চাইলে সেই মুছে ফেলা ভ্যালুটি আপনার জন্য রিটার্নও (ফিরে দিতে) করে, যাতেি চাইলে সেটি কোনো ভ্যারিয়েবলে সংরক্ষণ করে রাখতে পারেন।
+পাশাপাশি এটি চাইলে সেই মুছে ফেলা ভ্যালুটি আপনার জন্য রিটার্নও (ফিরে দিতে) করে, 
+যাতে চাইলে সেটি কোনো ভ্যারিয়েবলে সংরক্ষণ করে রাখতে পারেন।
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+print("Before pop:", student)
+
+# 1. Using .pop() to remove a specific key and capture its value in a variable
+removed_course = student.pop("course")
+print("Removed value ('course'):", removed_course)
+print("After pop:", student)
+
+# 2. Using .pop() with a default value for a key that does not exist 
+# (This prevents a KeyError and returns the default value instead)
+removed_phone = student.pop("phone", "Not Available")
+print("Result for non-existing key with default:", removed_phone)
+
 
 
 student = {
@@ -397,7 +704,6 @@ print("বর্তমান ডিকশনারি:", student)
 
 মুছে ফেলা ভ্যালু: 22
 বর্তমান ডিকশনারি: {'name': 'Abdullah', 'cgpa': 3.75}
-
 
 
 একটি জরুরি ব্যাপার (Key না থাকলে কী হবে?):
@@ -430,9 +736,34 @@ print(cart)
 
 
 
+
+
 .setdefault() মেথড
 এই মেথডটির কাজ হলো—ডিকশনারিতে নির্দিষ্ট কোনো কি (Key) আগে থেকে আছে কি না তা চেক করা।
-যদি থাকে, তবে তার বর্তমান ভ্যালু রিটার্ন করে। আর যদি না থাকে, তবে আপনি যে ডিফল্ট ভ্যালু দেবেন সেটি সহ নতুন কি-টি ডিকশনারিতে যুক্ত করে দেয়!
+যদি থাকে, তবে তার বর্তমান ভ্যালু রিটার্ন করে। আর যদি না থাকে, 
+তবে যে ডিফল্ট ভ্যালু দেবেন সেটি সহ নতুন কি-টি ডিকশনারিতে যুক্ত করে দেয়!
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63
+}
+
+print("Before setdefault:", student)
+
+# 1. Key ALREADY exists ('age' is already in the dict)
+# It will return the existing value (30) and do NOT change anything.
+returned_age = student.setdefault("age", 25)
+print("Returned age for existing key:", returned_age)
+
+# 2. Key does NOT exist ('course' is not in the dict)
+# It will add "course": "Python Backend" to the dictionary and return it.
+returned_course = student.setdefault("course", "Python Backend")
+print("Returned value for new key:", returned_course)
+
+print("After setdefault:", student)
+
 
 
 user = {"name": "Abdullah", "role": "student"}
@@ -447,13 +778,18 @@ print(user)
 # আউটপুট: {'name': 'Abdullah', 'role': 'student', 'city': 'Dhaka'}
 
 
-বিশেষ করে যখন আপনার ডাটা কাউন্ট (Counting) করতে হয় অথবা গ্রুপিং (Grouping) করতে হয়, তখন বারবার if-else লেখার ঝামেলা এটি এক লাইনে মিটিয়ে দেয়।
+বিশেষ করে যখন ডাটা কাউন্ট (Counting) করতে হয় অথবা গ্রুপিং (Grouping) করতে হয়, 
+তখন বারবার if-else লেখার ঝামেলা এটি এক লাইনে মিটিয়ে দেয়।
+
+
+
 
 
 ফ্রিকোয়েন্সি কাউন্টার বা ডেটা গোনা (Frequency Count)
-ধরে নিন, আপনার সার্ভারে বিভিন্ন ইউজার লগইন করছে এবং তাদের রোল (admin, user) ট্র্যাক করা হচ্ছে। এখন আপনি দেখতে চান কোন রোল কয়বার এসেছে।
+সার্ভারে বিভিন্ন ইউজার লগইন করছে এবং তাদের রোল (admin, user) ট্র্যাক করা হচ্ছে। এখন দেখতে চান কোন রোল কয়বার এসেছে।
 
-setdefault() না থাকলে আপনাকে বারবার চেক করতে হতো রোলটি ডিকশনারিতে আগে থেকেই আছে কি না। কিন্তু এটি দিয়ে কাজটি পানির মতো সহজ হয়ে যায়:
+setdefault() না থাকলে বারবার চেক করতে হতো রোলটি ডিকশনারিতে আগে থেকেই আছে কি না। 
+কিন্তু এটি দিয়ে কাজটি পানির মতো সহজ হয়ে যায়:
 
 
 # লগইন করা ইউজারদের রোলগুলোর একটি লিস্ট
@@ -471,7 +807,8 @@ for role in roles:
 print(role_count)
 
 {'admin': 3, 'user': 2, 'moderator': 1}
-এখানে .setdefault(role, 0) পাইথনকে বলে দিয়েছে: "যদি এই নামের কোনো কি না থাকে, তবে তাকে 0 বানিয়ে শুরু করো। আর থাকলে তো কথাই নেই!"
+এখানে .setdefault(role, 0) পাইথনকে বলে দিয়েছে: "যদি এই নামের কোনো কি না থাকে, 
+তবে তাকে 0 বানিয়ে শুরু করো। আর থাকলে তো কথাই নেই!"
 
 
 
@@ -553,7 +890,7 @@ print("বর্তমান ডিকশনারি:", student)
 
 
 ব্রাউজার হিস্ট্রি বা আনডো (Undo) সিস্টেম
-ধরুন আপনি এমন একটি প্রোগ্রাম বানাচ্ছেন যেখানে ইউজারের অ্যাক্টিভিটিগুলো একে একে সেভ হচ্ছে। 
+ধরুন এমন একটি প্রোগ্রাম বানাচ্ছেন যেখানে ইউজারের অ্যাক্টিভিটিগুলো একে একে সেভ হচ্ছে। 
 ইউজার যখন Undo বা পেছনের ধাপে যেতে চাইবে, তখন সবচেয়ে শেষের বা সাম্প্রতিক কাজটি রিমুভ করতে হবে।
 
 
