@@ -1,0 +1,1 @@
+my_set = {'apple', 'banana', 'mango'}
