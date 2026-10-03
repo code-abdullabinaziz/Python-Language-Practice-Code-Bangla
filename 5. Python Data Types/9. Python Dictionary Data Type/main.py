@@ -281,10 +281,12 @@ student = {
   "course": "Python Backend"
 }
 
-print("আগে:", student)
+print("Old student:", student)
 
 # ১. ভ্যারিয়েবলে নতুন মান রেখে সেটি ডিকশনারিতে যোগ করা
+
 new_city = "Rangpur"
+
 student["city"] = new_city  # এটি একদম শেষে যুক্ত হবে
 
 
@@ -294,6 +296,26 @@ student["age"] = updated_age  # পুরনো 30 কেটে গিয়ে 31 
 
 
 print("পরে (আপডেটের পর):", student)
+
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+print("Old student:", student)
+
+added_city = 'Rangpur'
+
+student['city'] = added_city
+
+print("New student:", student)
+
+
 
 
 
@@ -317,10 +339,27 @@ print(student)
 
 
 
+⚠️ বিশেষ সতর্কতা (KeyError):
 
-ডিকশনারি থেকে ভ্যালু এক্সেস করার সময় যদি এমন কোনো Key খোঁজেন যা ডিকশনারিতে নেই, 
-তখন স্কয়ার ব্র্যাকেট [] ব্যবহার করলে কোড ক্র্যাশ করে (KeyError দেয়)। কিন্তু .get() ব্যবহার করলে 
-কোড ক্র্যাশ না করে নিরাপদে None রিটার্ন করে (অথবা আপনি চাইলে নিজের মতো ডিফল্ট মান সেট করে দিতে পারেন)।
+যদি এমন কোনো Key দিয়ে ডিকশনারি থেকে মান খুঁজতে চান যা ডিকশনারির ভেতরে নেই, তবে পাইথন ক্র্যাশ করবে এবং KeyError দিবে। 
+এই সমস্যা থেকে বাঁচার জন্য get() মেথড ব্যবহার করা যায়:
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+print(student)
+
+
+student['name'] = 'Mohammad' #Reassigning the value of the key 'name' to 'Mohammad'
+
+print(student)
+
+
+
 
 student = {
   'name': 'Abdullah',
@@ -351,6 +390,40 @@ print(student_phone)  # আউটপুট: Not Available
 
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+result = student['fruits'] #program will throw an error because the key 'fruits' does not exist in the dictionary.
+
+print(result)
+
+print(student)
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend"
+}
+
+result_name = student.get('name', 'No name found')
+
+result = student.get('fruits', 'No fruits found')
+
+print(result)
+
+print(student)
+
+print(result_name)
+
+
+
 
 ডিকশনারি থেকে ডেটা ডিলিট করার জন্য মূলত দুটি জনপ্রিয় উপায় রয়েছে: del স্টেটমেন্ট এবং .pop() মেথড।
 
@@ -368,9 +441,29 @@ student = {
 print("Before deletion:", student)
 
 # ১. del ব্যবহার করে সরাসরি নির্দিষ্ট কি-ভ্যালু ডিলিট করা
+
 del student["age"]
 
 print("After deleting 'age':", student)
+
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+print(student)
+
+del student['age']
+
+print(student)
+
+
 
 # ২. .pop() ব্যবহার করে ডিলিট করা এবং রিমুভ হওয়া ভ্যালু ভ্যারিয়েবলে রেখে দেওয়া
 removed_course = student.pop("course")
@@ -385,6 +478,20 @@ del student["age"]: এটি শুধু ডিলিট করে দেয়, 
 student.pop("course"): এটি ডিলিট করার পাশাপাশি ওই ভ্যালুটি রিটার্ন করে, 
 যা চাইলে কোনো ভ্যারিয়েবলে (removed_course) রেখে দিতে পারেন।
 
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+removed_student = student.pop('city')
+
+print(student)
+
+print(f"Removed city: {removed_student}")
 
 
 
@@ -409,24 +516,6 @@ print(student["name"])  # আউটপুট: Abdullah
 print(student["cgpa"])  # আউটপুট: 3.63
 
 
-
-student = {
-  'name' : 'Abdullah',
-  'age' : 30,
-  'cgpa' : 3.63,
-  "course": "Python Backend"
-}
-
-result = student['name']
-
-print(result)
-
-⚠️ বিশেষ সতর্কতা (KeyError):
-যদি এমন কোনো Key দিয়ে ডিকশনারি থেকে মান খুঁজতে চান যা ডিকশনারির ভেতরে নেই, তবে পাইথন ক্র্যাশ করবে এবং KeyError দিবে। 
-এই সমস্যা থেকে বাঁচার জন্য get() মেথড ব্যবহার করা যায়:
-
-# 'phone' নামে কোনো কি নেই, তাই এটি এরর না দিয়ে None রিটার্ন করবে
-print(student.get("phone"))  # আউটপুট: None
 
 
 Key দিয়ে Value বের করা
@@ -467,9 +556,25 @@ print(result)
 
 
 Dictionary ভেতরে সাধারণ লিস্ট বা স্ট্রিংয়ের মতো ফিক্সড কোনো ইনডেক্স (0, 1, 2...) থাকে না। 
+
 ডিকশনারির ক্ষেত্রে Key ই হলো তার কাস্টম ইনডেক্স।
 
 ডিকশনারির কি-গুলোকে আগে একটি List-এ রূপান্তর করে নিতে হয়। এরপর .index() মেথড ব্যবহার করলেই ইনডেক্স পেয়ে যাবেন।
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+all_keys = student.keys()
+
+print(all_keys)    # dict_keys(['name', 'age', 'cgpa', 'course', 'city'])
+
+
 
 student = {
   'name': 'Abdullah',
@@ -478,19 +583,111 @@ student = {
   "course": "Python Backend"
 }
 
-# 1. Convert dictionary keys into a list
-keys_list = list(student.keys())
+keys_list = list(student.keys())   # 1. Convert dictionary keys into a list
+
 print("Keys List:", keys_list)
 
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+keys_list = list(student.keys())
+
+print(keys_list)   #['name', 'age', 'cgpa', 'course', 'city']
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+
+keys_list = list(student.keys())
+
+for key in keys_list:
+  print(key)
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+keys_list = list(student.keys())
+
+# Dictionary Comprehension দিয়ে মূল ডিকশনারি থেকে ভ্যালু নিয়ে রূপান্তর
+new_dict = {key: student[key] for key in keys_list}
+
+print(new_dict)
+# আউটপুট: {'name': 'Abdullah', 'age': 30, 'cgpa': 3.63, 'course': 'Python Backend', 'city': 'Rangpur'}
+
+
+
+
+নতুন ভ্যালুর আলাদা লিস্ট থেকে ডিকশনারি তৈরি করা (zip())
+যদি কাছে কি-এর লিস্টের পাশাপাশি নতুন ভ্যালুগুলোরও একটি আলাদা লিস্ট থাকে,
+তবে zip() ফাংশন ব্যবহার করে সহজেই জোড়া লাগিয়ে ডিকশনারি বানিয়ে ফেলা যায়:
+
+keys_list = ['name', 'age', 'cgpa', 'course', 'city']
+values_list = ['Abdullah', 30, 3.63, 'Python Backend', 'Rangpur']
+
+# zip() ব্যবহার করে জোড়া লাগিয়ে ডিকশনারিতে কনভার্ট
+reconstructed_dict = dict(zip(keys_list, values_list))
+
+print(reconstructed_dict)
+# আউটপুট: {'name': 'Abdullah', 'age': 30, 'cgpa': 3.63, 'course': 'Python Backend', 'city': 'Rangpur'}
+
+
+
+
+
+ডিফল্ট ভ্যালু বসিয়ে ডিকশনারি তৈরি করা (dict.fromkeys())
+যদি কাছে শুধু কি-এর লিস্ট থাকে এবং প্রাথমিক অবস্থায় সবগুলোতে একটি নির্দিষ্ট ডিফল্ট ভ্যালু (যেমন: None বা 0 বা "N/A") সেট করতে:
+
+
+# সব Key-এর ভ্যালু None সেট হবে
+default_dict = dict.fromkeys(keys_list, None)
+
+print(default_dict)
+# আউটপুট: {'name': None, 'age': None, 'cgpa': None, 'course': None, 'city': None}
+
+
+
+
 # 2. Find the index of a specific key using .index()
-# Let's find the index of 'cgpa'
-cgpa_index = keys_list.index("cgpa")
-print("Index of 'cgpa':", cgpa_index)
 
-# Let's find the index of 'course'
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+
+keys_list = list(student.keys())
+
 course_index = keys_list.index("course")
-print("Index of 'course':", course_index)
 
+name_index = keys_list.index("name")
+
+print("Index of 'course':", course_index) # 3
+print("Index of 'name':", name_index) # 0
 
 
 student = {
@@ -533,47 +730,75 @@ print("After modification (Mutable property):", student)
 
 
 
+
+
 মূল ডাটা দেখার মেথডসমূহ (keys, values, items)
 
 ডিকশনারির .keys() মেথড ব্যবহার করে কীভাবে সবকটি Key আলাদা করে বের করা যায়
+
 
 student = {
   'name': 'Abdullah',
   'age': 30,
   'cgpa': 3.63,
-  "course": "Python Backend"
+  "course": "Python Backend",
+  "city": "Rangpur"
 }
 
+print(student)
+
 # Using .keys() to get all the keys from the dictionary
-dictionary_keys = student.keys()
+dict_keys = student.keys()
 
-print("All keys:", dictionary_keys)
+print(dict_keys)
 
-# Iterating through the keys using a loop
+
 print("\nLooping through keys:")
+
 for key in student.keys():
     print(key)
 
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+
+print(f"{student['name']} is {student['age']} years old. He has a CGPA of {student['cgpa']} 
+and is enrolled in the {student['course']} course. He lives in {student['city']}.")
+
+
+
+
+
 ডিকশনারির .values() মেথড ব্যবহার করে কীভাবে ডিকশনারির ভেতরে থাকা সবকটি Value আলাদা করে বের করা যায়
+
 
 student = {
   'name': 'Abdullah',
   'age': 30,
   'cgpa': 3.63,
-  "course": "Python Backend"
+  "course": "Python Backend",
+  "city": "Rangpur"
 }
 
+print(student)
+
 # Using .values() to get all the values from the dictionary
+
 dictionary_values = student.values()
+print(dictionary_values)
 
-print("All values:", dictionary_values)
-
-# Iterating through the values using a loop
 print("\nLooping through values:")
 for value in student.values():
     print(value)
+
+
 
 
 
@@ -588,17 +813,24 @@ student = {
   'name': 'Abdullah',
   'age': 30,
   'cgpa': 3.63,
-  "course": "Python Backend"
+  "course": "Python Backend",
+  "city": "Rangpur"
 }
 
+print(student)
+
 # Using .items() to get all key-value pairs as tuples
+
 dictionary_items = student.items()
-print("All items (as tuples):", dictionary_items)
+
+print(dictionary_items)  # Output: dict_items([('name', 'Abdullah'), ('age', 30), ('cgpa', 3.63), ('course', 'Python Backend'), ('city', 'Rangpur')])
 
 # Iterating through items using a loop (Most commonly used in real projects)
 print("\nLooping through items (Key and Value together):")
+
 for key, value in student.items():
-    print(f"Key: {key} ==> Value: {value}")
+    print(f"Key: {key}, Value: {value}")
+
 
 
 
@@ -606,43 +838,6 @@ student = {"name": "Abdullah", "age": 22, "cgpa": 3.75}
 print(student.keys())    # আউটপুট: dict_keys(['name', 'age', 'cgpa'])
 print(student.values())  # আউটপুট: dict_values(['Abdullah', 22, 3.75])
 print(student.items())   # আউটপুট: dict_items([('name', 'Abdullah'), ('age', 22), ('cgpa', 3.75)])
-
-
-
-
-নিরাপদ ডাটা খোঁজার মেথড (get)
-.get(key): ডিকশনারি থেকে কোনো কি-এর ভ্যালু বের করতে এটি ব্যবহার করা হয়।
-
-কেন ব্যবহার করবেন? সাধারণ নিয়মে student["address"] লিখলে কি (Key) না থাকলে কোড ক্রাশ 
-করে বা KeyError দেয়। কিন্তু .get("address") ব্যবহার করলে কি না থাকলে কোনো এরর না দিয়ে শান্তশিষ্টভাবে None রিটার্ন করে।
-
-student = {"name": "Abdullah", "age": 30}
-
-# .get ব্যবহার করার সুবিধা
-print(student.get("age"))      # আউটপুট: 30
-print(student.get("address"))  # আউটপুট: None (কোনো এরর দেবে না)
-
-
-student = {
-  'name': 'Abdullah',
-  'age': 30,
-  'cgpa': 3.63,
-  "course": "Python Backend"
-}
-
-# 1. Using .get() for an existing key
-student_name = student.get("name")
-print("Name:", student_name)
-
-# 2. Using .get() for a non-existing key (Returns None instead of crashing)
-student_email = student.get("email")
-print("Email (Not in dict):", student_email)
-
-# 3. Using .get() with a default value if the key is not found
-student_phone = student.get("phone", "Not Provided")
-print("Phone with default value:", student_phone)
-
-
 
 
 
