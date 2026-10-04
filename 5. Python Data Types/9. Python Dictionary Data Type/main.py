@@ -637,6 +637,23 @@ print(new_dict)
 
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+
+all_keys = list(student.keys())
+
+new_student = {key: student[key] for key in all_keys if key != 'cgpa'}
+
+print(new_student)
+
+
+
 
 নতুন ভ্যালুর আলাদা লিস্ট থেকে ডিকশনারি তৈরি করা (zip())
 যদি কাছে কি-এর লিস্টের পাশাপাশি নতুন ভ্যালুগুলোরও একটি আলাদা লিস্ট থাকে,
@@ -650,6 +667,17 @@ reconstructed_dict = dict(zip(keys_list, values_list))
 
 print(reconstructed_dict)
 # আউটপুট: {'name': 'Abdullah', 'age': 30, 'cgpa': 3.63, 'course': 'Python Backend', 'city': 'Rangpur'}
+
+
+
+keys_list = ['name', 'age', 'cgpa', 'course', 'city']
+values_list = ['Abdullah', 30, 3.63, 'Python Backend', 'Rangpur']
+
+student = dict(zip(keys_list, values_list))
+
+print(student)
+
+
 
 
 
@@ -706,6 +734,44 @@ print("Age Key Index:", age_index)
 # আউটপুট: 1 (কারণ 'age' লিস্টের ২য় অবস্থানে বা 1 ইনডেক্সে আছে)
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+
+keys_list = list(student.keys())
+
+student_index = int(input("Enter the index of the key you want to access (0-4): "))
+
+if 0 <= student_index < len(keys_list):
+    selected_key = keys_list[student_index]
+    print(f"The value for '{selected_key}' is: {student[selected_key]}")
+else:
+    print("Invalid index. Please enter a number between 0 and 4.")
+    
+    
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+
+keys_list = list(student.keys())
+
+student_index = keys_list.index('cgpa')
+
+print(student_index)
+
+
+
 
 
 
@@ -725,9 +791,6 @@ student['age'] = 31
 student['cgpa'] = 3.80
 
 print("After modification (Mutable property):", student)
-
-
-
 
 
 
@@ -757,6 +820,7 @@ print("\nLooping through keys:")
 
 for key in student.keys():
     print(key)
+
 
 
 
@@ -833,6 +897,19 @@ for key, value in student.items():
 
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend",
+  "city": "Rangpur"
+}
+
+
+for key, value in student.items():
+    print(key, value)
+
+
 
 student = {"name": "Abdullah", "age": 22, "cgpa": 3.75}
 print(student.keys())    # আউটপুট: dict_keys(['name', 'age', 'cgpa'])
@@ -855,9 +932,45 @@ extra_info = {"age": 25, "city": "Dhaka"}
 
 # extra_info ডিকশনারির ডেটা user-এর সাথে যুক্ত করা হলো
 user.update(extra_info)
-
+ 
 print(user)
 # আউটপুট: {'name': 'Karim', 'age': 25, 'city': 'Dhaka'}
+
+
+user = {
+  "name" : "Abdullah",
+  "age" : 30
+}
+
+extra_info = {
+  "city" : "Rangpur",
+  "country" : "Bangladesh"
+}
+
+updated_user = user.update(extra_info)
+
+print(updated_user) #None
+
+user.update(extra_info)
+print(user) # {'name': 'Abdullah', 'age': 30, 'city': 'Rangpur', 'country': 'Bangladesh'}
+
+
+user = {
+  "name" : "Abdullah",
+  "age" : 30
+}
+
+extra_info = {
+  "city" : "Rangpur",
+  "country" : "Bangladesh"
+}
+
+updated_user = {**user, **extra_info}
+
+print(updated_user)
+
+
+
 
 
 student = {
@@ -879,6 +992,29 @@ student.update({
 })
 
 print("After update:", student)
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 25,
+  'cgpa': 4.74,
+  "course": "Python Backend"
+}
+
+print("Before update:", student)
+
+student.update({
+  'name': 'Mohammad Abdulla',
+  'age': 30,
+  'cgpa': 3.63,
+  "course": "Python Backend Development and Cyber Security"
+})
+
+print("After update:", student)
+
+
+
 
 
 # Base student dictionary
@@ -910,6 +1046,27 @@ After merging (Dictionaries combined & updated): {'name': 'Abdullah', 'age': 30,
 ২. cgpa কি-টি আগে থেকেই student-এ ছিল (3.63), কিন্তু .update() রান করার পর সেটি ওভাররাইট হয়ে নতুন মান (3.80) হয়ে গেছে।
 
 এভাবেই .update() দিয়ে খুব সহজে একাধিক ডিকশনারি মার্জ করা যায়।
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 4.63
+}
+
+print(student)
+
+additional_info = {
+  "gender": "male",
+  "village": "Changmary",
+  "city" : "Rangpur",
+  "cgpa" : 3.63
+}
+
+student.update(additional_info)
+
+print(student)
 
 
 
@@ -993,6 +1150,21 @@ removed_phone = student.pop("phone", "Not Available")
 print("Result for non-existing key with default:", removed_phone)
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 4.63
+}
+
+print(student)
+
+removed_value = student.pop('age')
+print("Removed value:", removed_value)
+print("After removal:", student)
+
+
+
+
 
 student = {
     "name": "Abdullah",
@@ -1025,6 +1197,25 @@ print(result)  # আউটপুট: Not Found
 
 
 
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 4.63
+}
+
+print(student)
+
+removed_value = student.pop("salary", "Key not found")
+
+print("Removed value:", removed_value)
+
+print("After removal:", student)
+
+
+
+
+
+
 
 
 .clear() মেথড
@@ -1039,6 +1230,32 @@ cart.clear()
 print(cart)
 # আউটপুট: {}
 
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 4.63
+}
+
+
+kk = student.clear()
+
+print(kk) None
+
+print(student) but clear
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 4.63
+}
+
+student.clear()
+
+print(student) 
 
 
 
@@ -1059,15 +1276,47 @@ print("Before setdefault:", student)
 
 # 1. Key ALREADY exists ('age' is already in the dict)
 # It will return the existing value (30) and do NOT change anything.
+
 returned_age = student.setdefault("age", 25)
 print("Returned age for existing key:", returned_age)
 
 # 2. Key does NOT exist ('course' is not in the dict)
 # It will add "course": "Python Backend" to the dictionary and return it.
+
 returned_course = student.setdefault("course", "Python Backend")
 print("Returned value for new key:", returned_course)
 
 print("After setdefault:", student)
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 4.63
+}
+
+print(student) 
+
+kk = student.setdefault('name', 'Abdullah')
+
+print(student) {'name': 'Abdullah', 'age': 30, 'cgpa': 4.63}
+
+print(kk) Abdullah
+
+
+
+student = {
+  'name': 'Abdullah',
+  'age': 30,
+  'cgpa': 4.63
+}
+
+print(student) {'name': 'Abdullah', 'age': 30, 'cgpa': 4.63}
+
+student.setdefault('gender', 'Male')
+
+print(student) {'name': 'Abdullah', 'age': 30, 'cgpa': 4.63, 'gender': 'Male'}
+
 
 
 
@@ -1083,11 +1332,11 @@ print(user)
 # আউটপুট: {'name': 'Abdullah', 'role': 'student', 'city': 'Dhaka'}
 
 
+
+
+
 বিশেষ করে যখন ডাটা কাউন্ট (Counting) করতে হয় অথবা গ্রুপিং (Grouping) করতে হয়, 
 তখন বারবার if-else লেখার ঝামেলা এটি এক লাইনে মিটিয়ে দেয়।
-
-
-
 
 
 ফ্রিকোয়েন্সি কাউন্টার বা ডেটা গোনা (Frequency Count)
@@ -1114,6 +1363,142 @@ print(role_count)
 {'admin': 3, 'user': 2, 'moderator': 1}
 এখানে .setdefault(role, 0) পাইথনকে বলে দিয়েছে: "যদি এই নামের কোনো কি না থাকে, 
 তবে তাকে 0 বানিয়ে শুরু করো। আর থাকলে তো কথাই নেই!"
+
+
+roles = ["admin", "user", "admin", "moderator", "user", "admin"]
+
+roles_count = {}
+
+for role in roles:
+  roles_count.setdefault(role, 0)
+  roles_count[role] += 1
+  
+print(roles_count)
+
+
+
+Code Dry Run Breakdown
+১. মূল ডেটা প্রিপারেশন
+Line 1: roles = ["admin", "user", "admin", "moderator", "user", "admin"]
+
+কী ঘটছে: roles নামে একটি পাইথন লিস্ট তৈরি করা হচ্ছে যেখানে ৬টি উপাদান রয়েছে।
+
+Line 3: roles_count = {}
+
+কী ঘটছে: একটি ফাঁকা ডিকশনারি তৈরি করা হচ্ছে যা ভবিষ্যতে প্রতিটি রোলের সংখ্যা কাউন্ট করার জন্য ব্যবহৃত হবে।
+
+২. লুপের মাধ্যমে ডেটা প্রসেসিং (Step by Step Execution)
+Line 5: for role in roles:
+
+কী ঘটছে: roles লিস্ট থেকে একটি করে আইটেম বের করে role ভেরিয়েবলে নিয়ে লুপ শুরু হচ্ছে।
+
+Iteration 1: (প্রথমার্দ্ধে role = "admin")
+Line 6: roles_count.setdefault("admin", 0)
+
+কী ঘটছে: ডিকশনারিতে "admin" কি (key) আছে কিনা চেক করা হয়। যেহেতু নেই, তাই "admin": 0 সেট করা হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 0}
+
+Line 7: roles_count["admin"] += 1
+
+কী ঘটছে: "admin" কি-এর মান ০ এর সাথে ১ যোগ হয়ে ১ হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 1}
+
+Iteration 2: (দ্বিতীয়বারে role = "user")
+Line 6: roles_count.setdefault("user", 0)
+
+কী ঘটছে: ডিকশনারিতে "user" কি আছে কিনা চেক করা হয়। যেহেতু নেই, তাই "user": 0 নতুন কি হিসেবে যোগ হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 1, "user": 0}
+
+Line 7: roles_count["user"] += 1
+
+কী ঘটছে: "user" কি-এর মান ০ এর সাথে ১ যোগ হয়ে ১ হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 1, "user": 1}
+
+Iteration 3: (তৃতীয়বারে role = "admin")
+Line 6: roles_count.setdefault("admin", 0)
+
+কী ঘটছে: ডিকশনারিতে "admin" কি আছে কিনা চেক করা হয়। যেহেতু এটি আগেই ডিকশনারিতে বিদ্যমান, তাই setdefault() কোনো নতুন মান রিসেট না করে আগের অবস্থান রেখে দেয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 1, "user": 1}
+
+Line 7: roles_count["admin"] += 1
+
+কী ঘটছে: "admin" কি-এর মান ১ এর সাথে আরও ১ যোগ হয়ে ২ হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 2, "user": 1}
+
+Iteration 4: (চতুর্থবারে role = "moderator")
+Line 6: roles_count.setdefault("moderator", 0)
+
+কী ঘটছে: ডিকশনারিতে "moderator" কি আছে কিনা চেক করা হয়। না থাকায় "moderator": 0 ডিকশনারিতে নতুন যুক্ত হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 2, "user": 1, "moderator": 0}
+
+Line 7: roles_count["moderator"] += 1
+
+কী ঘটছে: "moderator" কি-এর মান ০ এর সাথে ১ যোগ হয়ে ১ হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 2, "user": 1, "moderator": 1}
+
+Iteration 5: (পঞ্চমবারে role = "user")
+Line 6: roles_count.setdefault("user", 0)
+
+কী ঘটছে: ডিকশনারিতে "user" কি ইতিমধ্যে রয়েছে, তাই কোনো পরিবর্তন হয় না।
+
+বর্তমান অবস্থা: roles_count = {"admin": 2, "user": 1, "moderator": 1}
+
+Line 7: roles_count["user"] += 1
+
+কী ঘটছে: "user" কি-এর মান ১ এর সাথে আরও ১ যোগ হয়ে ২ হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 2, "user": 2, "moderator": 1}
+
+Iteration 6: (ষষ্ঠবারে role = "admin")
+Line 6: roles_count.setdefault("admin", 0)
+
+কী ঘটছে: ডিকশনারিতে "admin" কি ইতিমধ্যে রয়েছে, তাই কোনো পরিবর্তন হয় না।
+
+বর্তমান অবস্থা: roles_count = {"admin": 2, "user": 2, "moderator": 1}
+
+Line 7: roles_count["admin"] += 1
+
+কী ঘটছে: "admin" কি-এর মান ২ এর সাথে ১ যোগ হয়ে ৩ হয়।
+
+বর্তমান অবস্থা: roles_count = {"admin": 3, "user": 2, "moderator": 1}
+
+৩. চূড়ান্ত ফলাফল আউটপুট
+Line 9: print(roles_count)
+
+কী ঘটছে: ডিকশনারির চূড়ান্ত তথ্য কনসোলে প্রিন্ট করা হয়।
+
+
+{'admin': 3, 'user': 2, 'moderator': 1}
+
+
+
+
+
+
+
+
+
+roles = ["admin", "user", "admin", "moderator", "user", "admin"]
+
+roles_count = {}
+
+for role in roles:
+    if role in roles_count:
+        roles_count[role] += 1
+    else:
+        roles_count[role] = 1
+
+print(roles_count)
+
+
 
 
 
