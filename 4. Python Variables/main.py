@@ -530,3 +530,103 @@ print(f"{'Name'.ljust(10)} | {name.rjust(10)}")
 print(f"{'Height'.ljust(10)} | {format(height, '.1f').rjust(5)}")
 print(f"{"Account".ljust(10)} |   ${format(account, '.3f').rjust(5)}")
 print(f"{'Married'.ljust(10)} | {'Yes' if married else 'No'.rjust(4)}")
+
+
+ljust(10) (Left Adjust): লেখাটিকে বামে বসিয়ে রাখবে এবং ডানে খালি স্পেস যোগ করে মোট ১০ ঘর পূর্ণ করবে।
+
+rjust(10) (Right Adjust): লেখাটিকে ঠেলে ডানে পাঠিয়ে দেবে এবং বামে খালি স্পেস যোগ করে মোট ১০ ঘর পূর্ণ করবে।
+
+
+name = "Abdullah"
+
+print(f"{'Field'.ljust(10)} | {'Value'.rjust(7)}")
+print("-" * 22)
+print(f"{'Name:'.ljust(10)} | {name.rjust(10)}")
+
+
+Field      |   Value
+----------------------
+Name:      |   Abdullah
+
+
+📊 পজিশন ও স্পেস ম্যাপিং:
+১.  Field.ljust(10)
+'Field' শব্দটিতে ৫টি অক্ষর আছে।
+
+ljust(10) বলায় টেক্সটটি বামে চেপেছে এবং ডানপাশে ৫টি অতিরিক্ত স্পেস যোগ হয়ে মোট ১০ ঘরের জায়গা নিয়েছে:
+['F', 'i', 'e', 'l', 'd', ' ', ' ', ' ', ' ', ' ']
+
+২. 'Abdullah'.rjust(10)
+'Abdullah' শব্দটিতে ৮টি অক্ষর আছে।
+
+rjust(10) বলায় টেক্সটটি ডানে সরে গেছে এবং বামপাশে ২টি অতিরিক্ত স্পেস যোগ হয়ে মোট ১০ ঘরের জায়গা নিয়েছে:
+[' ', ' ', 'A', 'b', 'd', 'u', 'l', 'l', 'a', 'h']
+
+
+name = "Abdullah"
+age = 30
+married = False
+account = 12.1234123
+
+# টেবিল হেডার
+print(f"{'Field'.ljust(10)} | {'Value'.rjust(10)}")
+print("-" * 23)
+
+# ডাটা রো (Rows)
+print(f"{'Name:'.ljust(10)} | {name.rjust(10)}")
+print(f"{'Age:'.ljust(10)} | {str(age).rjust(10)}")
+print(f"{'Married:'.ljust(10)} | {str(married).rjust(10)}")
+# float সংখ্যা ২ দশমিক ঘর পর্যন্ত সুন্দর করে সাজানো
+print(f"{'Account:'.ljust(10)} | {f'{account:.2f}'.rjust(10)}")
+
+
+
+
+
+center() মেথডের কাজ হলো—টেক্সটটিকে নির্দিষ্ট জায়গায় একদম মাঝখানে (Center Align) এনে বসানো।
+
+ljust(10)বামেডানপাশে স্পেস যোগ হবে 
+rjust(10)ডানেবামপাশে স্পেস যোগ হবে
+center(10)মাঝখানেডানে ও বামে সমানভাবে স্পেস ভাগ হয়ে যাবে
+
+
+name = "Abdullah"
+age = 30
+married = False
+account = 12.1234123
+
+# টেবিল হেডার (সবকিছু মাঝখানে থাকবে)
+print(f"{'Field'.center(12)} | {'Value'.center(12)}")
+print("-" * 27)
+
+# ডাটা রো (Rows)
+print(f"{'Name:'.ljust(12)} | {name.center(12)}")
+print(f"{'Age:'.ljust(12)} | {str(age).center(12)}")
+print(f"{'Married:'.ljust(12)} | {str(married).center(12)}")
+print(f"{'Account:'.ljust(12)} | {f'{account:.2f}'.center(12)}")
+
+
+Field     |    Value    
+---------------------------
+Name:        |   Abdullah  
+Age:         |      30     
+Married:     |    False    
+Account:     |    12.12
+
+
+
+🎨 কাস্টম ক্যারেক্টার দিয়ে ডিজাইন করা:
+center() মেথডে খালি স্পেসের বদলে অন্য কোনো চিহ্ন (যেমন: -, *, =) বসিয়ে সুন্দর টাইটেল বা হেডার বর্ডার বানানো যায়:
+
+title = " USER PROFILE "
+
+# ৩০ ঘরের মাঝখানে 'USER PROFILE' বসাবে এবং ডানে-বামে '=' দিয়ে ভরাট করবে
+print(title.center(30, "="))
+
+
+======== USER PROFILE ========
+
+
+💡 মেমোরিতে কীভাবে স্পেস ভাগ হয় (Dry-Run):"Abdullah".center(12)'Abdullah' শব্দের দৈর্ঘ্য = ৮ ক্যারেক্টার।মোট ঘর দেওয়া হয়েছে = ১২।
+অবশিষ্ট খালি ঘর = 12 - 8 = 4 টি।
+পাইথন বামে ২টি এবং ডানে ২টি স্পেস বসিয়ে দেবে: [' ', ' ', 'A', 'b', 'd', 'u', 'l', 'l', 'a', 'h', ' ', ' ']
