@@ -326,3 +326,215 @@ def check_memory():
     print(globals()['a'])  # Output: 100
 
 check_memory()
+
+
+
+Local Example:
+
+def  user_details():
+  name = "Abdullah"
+  age = 30
+  height = 5.223
+  print(f"{'Name:':<10} {name}")
+  print(f"{'Age:':<10} {age}")
+  print(f"{'Height:':10} {height:.1f}")
+  
+user_details()
+
+
+
+Global Example:
+
+def  user_details():
+  name = "Abdullah"
+  age = 30
+  height = 5.223
+  print(f"{'Name:':<10} {name}")
+  print(f"{'Age:':<10} {age}")
+  print(f"{'Height:':<10} {height:.1f}")
+  print(f"{'Subject:':<10} {subject}")
+  print(f"{'Village:':<10} {village}")
+  
+user_details()
+
+print(f"{subject}")
+
+print(f"{village}")
+  
+
+
+
+
+
+# এটি Global Variable (ফাংশনের বাইরে তৈরি করা হয়েছে)
+x = 10 
+
+
+def my_function():
+    # এটি Local Variable (ফাংশনের ভেতরে তৈরি করা হয়েছে)
+    y = 5 
+    print("Local Variable y =", y)
+    print("Global Variable x (Inside Function) =", x)
+
+
+# ফাংশন কল করা
+my_function()
+
+# ফাংশনের বাইরে Global Variable ব্যবহার
+print("Global Variable x (Outside Function) =", x)
+
+# নিচের লাইনটি ভুল হবে (Error আসবে), কারণ y একটি Local Variable
+# print(y)
+
+
+
+
+ফাংশনের ভেতর থেকে কোনো Global Variable-এর মান পরিবর্তন করতে চাইলে global কিওয়ার্ড ব্যবহার করতে হয়:
+
+count = 0  # Global Variable
+
+
+def increment():
+    global count  # পাইথনকে বলে দেওয়া হচ্ছে আমরা বাইরের count ব্যবহার করব
+    count = count + 1
+
+
+increment()
+print("Updated Global Count =", count)  # আউটপুট: 1
+
+
+
+
+ফাংশনের মান গণনা ও রিটার্ন (Return Pattern)
+ব্যাকএন্ড ডেভেলপমেন্টে গ্লোবাল ভেরিয়েবল সরাসরি পরিবর্তন না করে, 
+লোকাল ভেরিয়েবল প্রসেস করে return করা সবচেয়ে ভালো ও নিরাপদ প্র্যাকটিস।
+
+
+tax_rate = 0.15  # Global Variable (কমন কনফিগারেশন)
+
+def calculate_total(price):
+    # local_tax এবং total_price দুটিই Local Variable
+    local_tax = price * tax_rate
+    total_price = price + local_tax
+    return total_price  # লজিক প্রসেস করে লোকাল রেজাল্ট বাইরে পাঠানো হলো
+
+# ব্যবহারের নিয়ম
+final_bill = calculate_total(100)
+print("Total Bill:", final_bill)  # Output: 115.0
+
+
+
+কাউন্টার ও স্ট্যাটাস আপডেট (global কিওয়ার্ড)
+সিস্টেম লগইন সংখ্যা গণনা বা সার্ভার স্ট্যাটাস ট্র্যাক করার কাজে গ্লোবাল ভেরিয়েবল আপডেট করতে হয়।
+
+total_logins = 0  # Global Variable
+
+def user_login_event(username):
+    global total_logins  # গ্লোবাল ভেরিয়েবল পরিবর্তনের অনুমতি নেওয়া হলো
+    total_logins += 1    # মূল ভেরিয়েবলের সাথে ১ যোগ করা হলো
+    
+    # local_msg একটি Local Variable
+    local_msg = f"User '{username}' logged in successfully."
+    print(local_msg)
+
+# একাধিক ইউজার লগইন করলে
+user_login_event("rahim")
+user_login_event("karim")
+
+print("Total Successful Logins:", total_logins)  # Output: 2
+
+
+
+কনফিগারেশন পরিবর্তন (সিস্টেম সেটিং)
+প্রজেক্টের সেটিংস যেমন—ওয়েবসাইট ব্যাকগ্রাউন্ড মোড বা ডিফোল্ট ল্যাঙ্গুয়েজ পরিবর্তন করতে এই প্যাটার্ন লাগে।
+
+app_theme = "LIGHT"  # Global Variable (ডিফোল্ট সেটিং)
+
+def enable_dark_mode():
+    global app_theme
+    app_theme = "DARK"  # গ্লোবাল থিম পরিবর্তন করা হলো
+    
+    status = f"App theme is now updated to {app_theme} mode."  # Local Variable
+    print(status)
+
+# অ্যাপ্লিকেশন নাইট মোডে নেওয়া
+enable_dark_mode()
+print("Current Active Theme:", app_theme)  # Output: DARK
+
+
+Local Variable: যে ভেরিয়েবল শুধু নির্দিষ্ট ফাংশনের ভেতরের কাজের জন্য তৈরি হয়। ফাংশনের কাজ শেষ হলে এটি মেমোরি থেকে মুছে যায়।
+
+Global Variable: পুরো স্ক্রিপ্টে বা একাধিক ফাংশনে যে ভেরিয়েবলের মান কমন থাকে। ফাংশনের ভেতর থেকে পরিবর্তন করতে হলে global কিওয়ার্ড ব্যবহার করতে হয়।
+
+
+
+ভেরিয়েবল শ্যাডোইং (Variable Shadowing)
+যদি কোনো লোকাল ভেরিয়েবলের নাম গ্লোবাল ভেরিয়েবলের নামের মতো একই হয়, তবে পাইথন ফাংশনের ভেতরে লোকাল ভেরিয়েবলটিকে প্রাধান্য দেয়
+(গ্লোবাল ভেরিয়েবলকে ঢেকে বা "shadow" করে ফেলে)।
+
+# Global Variable
+status = "Offline"
+
+
+def check_server():
+    # এখানে লোকাল ভেরিয়েবল তৈরি করা হলো, যার নাম গ্লোবালের মতোই
+    status = "Online"
+    print("Inside function (Local):", status)  # আউটপুট: Online
+
+
+check_server()
+print("Outside function (Global):", status)  # আউটপুট: Offline
+
+
+
+একাধিক ফাংশন থেকে একটি গ্লোবাল ভেরিয়েবল শেয়ার করা
+ব্যাকএন্ডে অনেক সময় পুরো অ্যাপ্লিকেশনের জন্য একটি কমন কনফিগারেশন বা ডেটা থাকে, যা বিভিন্ন ফাংশন প্রয়োজনমতো রিড করে।
+
+# Global Variable (পুরো ফাইলের জন্য কমন ডেটা)
+current_user_role = "Guest"
+
+
+def login_as_admin():
+    global current_user_role
+    current_user_role = "Admin"
+    print("Role updated to:", current_user_role)
+
+
+def check_permission():
+    # এটি গ্লোবাল ভেরিয়েবলের বর্তমান মান চেক করবে
+    if current_user_role == "Admin":
+        print("Access Granted: Welcome Admin!")
+    else:
+        print("Access Denied: You are a Guest.")
+
+
+# ফাংশনগুলো রান করে দেখা যাক
+check_permission()  # আউটপুট: Access Denied (কারণ তখন role Guest ছিল)
+
+login_as_admin()  # role পরিবর্তন করে Admin করা হলো
+check_permission()  # আউটপুট: Access Granted (এখন অনুমোদন পাবে)
+
+
+
+গ্লোবাল ভেরিয়েবল সরাসরি পরিবর্তন না করে আর্গুমেন্ট হিসেবে পাস করা (Best Practice)
+প্রফেশনাল প্রোগ্রামিংয়ে গ্লোবাল ভেরিয়েবলের মান ফাংশনের ভেতর সরাসরি global দিয়ে পরিবর্তন 
+করাকে সবসময় ভালো প্র্যাকটিস হিসেবে ধরা হয় না (এতে কোডে বাগ বা সমস্যা তৈরি হতে পারে)। এর বদলে মান পাস করে দেওয়া নিরাপদ।
+
+
+# Global Variable
+api_version = "v1"
+
+
+def get_api_endpoint(version, endpoint_name):
+    # এখানে গ্লোবাল ভেরিয়েবল সরাসরি না নিয়ে আর্গুমেন্ট হিসেবে ফাংশনে পাঠানো হয়েছে
+    return f"https://api.example.com/{version}/{endpoint_name}"
+
+
+# গ্লোবাল ভেরিয়েবলটি আর্গুমেন্ট হিসেবে পাস করা হলো
+url = get_api_endpoint(api_version, "users")
+print("Generated URL:", url)  # আউটপুট: https://api.example.com/v1/users
+
+
+বড় বড় ব্যাকএন্ড প্রজেক্টে বা FastAPI-তে কোড লেখার সময় চেষ্টা করা হয় গ্লোবাল ভেরিয়েবলের ওপর নির্ভরতা কমিয়ে
+ফাংশনের প্যারামিটার বা আর্গুমেন্টের মাধ্যমে ডেটা পাস করতে। এতে কোড অনেক বেশি পরিষ্কার এবং নিরাপদ থাকে।
+
