@@ -238,6 +238,25 @@ user_details()
 
 
 
+
+def user():
+    name = input("Enter your name: ")
+    age = int(input("Enter your age: "))
+    email = input("Enter your email: ")
+
+    print("\nUser details")
+    
+    print(f"{'Name:':<10} | {name}")
+    print(f"{'Age:':<10} | {age}")
+    print(f"{'Email:':<10} | {email}")
+
+# ফাংশন কল করা
+user()
+
+
+
+
+
 def  user_details():
     name = "Abdullah"
     age = 30
