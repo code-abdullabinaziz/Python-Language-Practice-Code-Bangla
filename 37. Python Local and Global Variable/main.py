@@ -329,6 +329,8 @@ check_memory()
 
 
 
+
+
 Local Example:
 
 def  user_details():
@@ -361,6 +363,49 @@ print(f"{subject}")
 
 print(f"{village}")
   
+
+পাইথনে যদি ফাংশনের ভেতরে village = "Gongachora" লেখেন (কোনো global কিওয়ার্ড ছাড়া), পাইথন এটাকে গ্লোবাল
+পরিবর্তন না ভেবে সম্পূর্ণ নতুন একটি লোকাল ভেরিয়েবল (Local Variable) বানিয়ে ফেলে।
+
+
+village = "Changmary" # Global Variable
+
+def user_details():
+    global village    # পাইথনকে স্পষ্ট জানিয়ে দেওয়া হলো
+    village = "Gongachora" # এখন গ্লোবাল ভেরিয়েবল রিঅ্যাসাইন হবে
+
+user_details()
+print(village) # Output: Gongachora
+
+
+যদি সত্যিই ফাংশনের ভেতর থেকে গ্লোবাল ভেরিয়েবলের মান পরিবর্তন (reassign) করতে চান, তবে অবশ্যই global কিওয়ার্ড ব্যবহার করতে হবে।
+
+
+subject = 'programming'
+village = "Changmary"  # Global Variable
+
+def user_details():
+    global village  # পাইথনকে বলে দেওয়া হলো আমরা গ্লোবাল 'village' ব্যবহার করছি
+    
+    name = "Abdullah"
+    age = 30
+    height = 5.223
+    
+    print(f"{'Name:':<10} {name}")
+    print(f"{'Age:':<10} {age}")
+    print(f"{'Height:':<10} {height:.1f}")
+    print(f"{'Subject:':<10} {subject}")
+    
+    # এখন এটি গ্লোবাল 'village' (Changmary) প্রিন্ট করবে
+    print(f"{'Village:':<10} {village}")
+    
+    # গ্লোবাল ভেরিয়েবলের মান পরিবর্তন করা হলো
+    village = "gongachora" 
+
+user_details()
+
+print(f"Outside Function Subject: {subject}")
+print(f"Outside Function Village: {village}")  # আউটপুট এখন 'gongachora' দেখাবে
 
 
 
