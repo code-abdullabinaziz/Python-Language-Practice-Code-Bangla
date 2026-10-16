@@ -120,32 +120,27 @@ print(...): এটি মাঝখানে সাজানো টেক্স�
 ------------------------------
 
 
-
-
-
 name = "Abdullah"
 age = 30
-height = 5.23
+height = 5.231
 married = False
 account = 20.123412321
 
-print(f"{'SYSTEM PROFILE CARD':-^31}")
+print(f"{'Student Input':-^30}")
 
-# ১. নাম
 print(f"{'Name:':<10} | {name:>10}")
 
-# ২. বয়স
-print(f"{'Age:':<10} | {age:>10}")
+print(f"{'Age:':<10} | {age:>4}")
 
-# ৩. উচ্চতা
-print(f"{'Height:':<10} | {height:>10}")
+print(f"{'Height:':<10} | {height:>5.1f}")
 
-# ৪. ম্যারিড স্ট্যাটাস (টার্নারি অপারেটর ব্যবহার করে)
-status = "Married" if married else "UnMarried"
-print(f"{'Married:':<10} | {status:>10}")
+print(f"{'Account:':<10} | {account:>7.2f}")
 
-# ৫. একাউন্ট ব্যালেন্স (যদি দশমিকের পর ২ ঘর দেখাতে চান)
-print(f"{'Account:':<10} | {account:>10.2f}")
+print(f"{'Married:':<10} | {'Married' if married else 'Unmarried':>11}")
+
+
+
+
 
 
 
