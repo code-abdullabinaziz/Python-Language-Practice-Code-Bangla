@@ -76,6 +76,38 @@ function_name: এটি ফাংশনের নাম। এটি আপন�
 
 
 
+def details(names, age):
+  # \n ব্যবহার করে এক প্রিন্টেই দুটি লাইন সুন্দরভাবে করা হয়েছে
+  print(f"{'Name:':<10} | {names:<10}\n{'Age:':<10} | {age:<10}")
+
+
+# ফাংশন কল করা হলো
+details("Abdullah", 30)
+
+
+
+def details(names, age):
+  print(f'{"Name:"} {names}\n{"Age:"} {age}')
+  
+details("Abdullah", 30)
+
+
+
+def: এটি হলো একটি কিওয়ার্ড, যার অর্থ হলো Define (ফাংশন সংজ্ঞায়িত করা বা তৈরি করা শুরু করা)।
+
+details: এটি হলো আপনার তৈরি করা Function Name (ফাংশনের নাম)।
+
+(names, age): এগুলো হলো ফাংশনের Parameters বা ইনপুট, যেগুলো দিয়ে ফাংশনের ভেতরে ডেটা পাস করা হয়।
+
+print(...) সহ নিচের অংশটুকু: এটি হলো পুরো ফাংশনের Block বা Body (ফাংশনের ভেতরের কার্যপ্রক্রিয়া বা যা এক্সিকিউট হবে)।
+
+details("Abdullah", 30): এটি হলো Function Call (ফাংশনটিকে কাজের জন্য ডাকা এবং আর্গুমেন্ট পাস করা)।
+
+
+
+
+
+
 
 # ১. ফাংশন ডিফাইন করা (Definition)
 def greet_backend_engine():
