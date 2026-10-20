@@ -425,3 +425,154 @@ def calculate_discount(price):
 result = calculate_discount(1000)
 
 print(f"Discount price: {result}")
+
+
+
+
+
+
+def my_details(first_name, last_name):
+  full_name = f"{first_name} {last_name}"
+  return full_name
+
+print(my_details("Abdullah", "Aziz"))
+
+
+print(my_details("Abdullah", "Aziz"))
+
+কখন ব্যবহার: যখন রিটার্ন করা মানটি শুধু একবারের জন্যই কনসোলে দেখানো প্রয়োজন এবং ভবিষ্যতে কোডে এটি আর কোনো কাজে লাগবে না।
+
+সুবিধা: কোডের লাইন কমে যায় এবং মেমোরিতে আলাদা কোনো ভেরিয়েবল ধরে রাখতে হয় না।
+
+
+name = my_details("Abdullah", "Aziz")
+print(name)
+
+কখন ব্যবহার: যখন ফাংশন থেকে পাওয়া রিটার্ন মানটি কোডের পরবর্তীতে বারবার ব্যবহার করতে হবে
+(যেমন: ডেটাবেজে সেভ করা, কোনো শর্ত বা লজিক চেক করা, বা অন্য কোনো ফাংশনে পাঠানো)।
+
+
+
+
+যদি ফাংশনের ভেতরে শুধু return লেখেন (কোনো ভ্যালু না দিয়ে), তবে পাইথন None রিটার্ন করবে।
+
+def check_something():
+    print("ফাংশনটি কাজ করছে...")
+    return # পেছনে কিছু লেখা হয়নি
+
+result = check_something()
+print(result) # আউটপুট আসবে: None
+
+
+কোনো return স্টেটমেন্ট না লিখলে:
+এমনকি যদি ফাংশনের ভেতরে return কথাটি মোটেও না লেখেন, তবুও পাইথন বাই-ডিফল্ট ফাংশনের একদম শেষে গিয়ে None ই রিটার্ন করে।
+
+def say_hello():
+    print("Hello!")
+
+result = say_hello()
+print(result) # আউটপুট আসবে: None
+
+
+
+
+এটি কখন ব্যবহার করা হয়?
+সাধারণত কোনো শর্ত সাপেক্ষে ফাংশন থেকে তাড়াতাড়ি বের হয়ে আসার জন্য (Early Exit) শুধু return ব্যবহার করা হয়।
+
+def process_age(age):
+    if age < 0:
+        print("ভুল বয়স দেওয়া হয়েছে!")
+        return # এখানেই ফাংশন বন্ধ হয়ে যাবে এবং None রিটার্ন করবে
+    
+    print(f"আপনার বয়স: {age}")
+
+process_age(-5)
+
+
+
+def my_details(first_name, last_name):
+  full_name = f"{first_name} {last_name}"
+  return "Rokshana Maisha"
+
+print(my_details("Abdullah", "Aziz"))
+
+
+
+একসাথে একাধিক মান রিটার্ন করা (Multiple Returns)
+পাইথনের একটি দারুণ সুবিধা হলো—আপনি চাইলে return-এর মাধ্যমে কমা
+দিয়ে একসাথে একাধিক মান বা ডেটা রিটার্ন করতে পারেন (যা আসলে একটি tuple হিসেবে রিটার্ন হয়)।
+
+
+def calculate(a, b):
+    addition = a + b
+    multiplication = a * b
+    return addition, multiplication  # দুটি মান একসাথে রিটার্ন করা হলো
+
+# দুটি আলাদা ভেরিয়েবলে মান দুটি রিসিভ করা
+sum_val, mul_val = calculate(5, 4)
+
+print(f"যোগফল: {sum_val}")  # আউটপুট: যোগফল: 9
+print(f"গুণফল: {mul_val}")  # আউটপুট: গুণফল: 20
+
+
+
+শর্ত সাপেক্ষে আগেভাগে বের হয়ে যাওয়া (Early Return / Guard Clause)
+কোনো নির্দিষ্ট শর্ত পূরণ না হলে কোড যেন আর সামনে না গিয়ে ওখানেই থেমে যায়, সেটির জন্য শর্তের ভেতরে return ব্যবহার করা হয়। একে আর্লি রিটার্ন বলে।
+
+def check_voting_eligibility(age):
+    if age < 18:
+        return "ভোট দেওয়ার বয়স হয়নি!"  # শর্ত মিললে এখানেই ফাংশন শেষ
+    
+    return "আপনি ভোট দিতে পারবেন!"       # শর্ত না মিললে এই লাইন কাজ করবে
+
+print(check_voting_eligibility(15))  # আউটপুট: ভোট দেওয়ার বয়স হয়নি!
+print(check_voting_eligibility(22))  # আউটপুট: আপনি ভোট দিতে পারবেন!
+
+
+কোনো মান না পাঠিয়ে শুধু return ব্যবহার করা (None রিটার্ন)
+যখন আপনি চান ফাংশনটি কোনো কাজ শেষ করে কিছু নির্দিষ্ট শর্তে কাজ থামা দিক এবং কোনো ডেটা ফেরত না পাঠাক, 
+তখন শুধু return লেখা হয়। এটি স্বয়ংক্রিয়ভাবে None রিটার্ন করে।
+
+def process_data(data):
+    if data is None:
+        print("কোনো ডেটা পাওয়া যায়নি!")
+        return  # এখানে রিটার্ন মানে হলো return None এবং ফাংশনটি এখানেই বন্ধ হয়ে যাবে
+    
+    print(f"ডেটা প্রসেস হচ্ছে: {data}")
+
+result = process_data(None)
+print(f"রিটার্ন মান: {result}")  
+# আউটপুট: 
+# কোনো ডেটা পাওয়া যায়নি!
+# রিটার্ন মান: None
+
+
+
+def my_details(first_name, last_name):
+  print("Hello-1")
+  print("Hello-2")
+  print("Hello-3")
+  print("Hello-4")
+  
+  # if first_name == 'Abdullah':
+  #   return "Rokshana"
+  
+  print("Hello-5")
+  print("Hello-6")
+  
+  if last_name == "Hello":
+    return
+  
+  print("Hello-7")
+  print("Hello-8")
+  
+  
+  score = 0
+  
+  if first_name == "Abdullah" and last_name == "Aziz":
+    score = 100
+  return score
+
+result = my_details("Abdullah", "Aziz")
+
+print(result)
