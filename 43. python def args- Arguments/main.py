@@ -1,10 +1,68 @@
+পাইথনে ফাংশনের আর্গুমেন্ট বা প্যারামিটার মূলত ৪ প্রকার হয়ে থাকে।
+
+
+
+১. Positional Arguments (পজিশনাল আর্গুমেন্টস)
+এগুলো হলো সাধারণ আর্গুমেন্ট, যেখানে মান পাঠানোর সময় সিরিয়াল বা পজিশন নিখুঁতভাবে মেনে চলতে হয়। সিরিয়াল উল্টাপাল্টা হলে ফলাফল ভুল আসতে পারে।
+
+
+
+def greet(name, age):
+    print(f"Hello {name}, you are {age} years old.")
+
+greet("Abdullah", 30)  # এখানে "Abdullah" যাবে name-এ, আর 30 যাবে age-এ
+
+
+
+
+২. Keyword Arguments (কีย์ওয়ার্ড আর্গুমেন্টস)
+এখানে ফাংশন কল করার সময় পজিশন বা সিরিয়াল কোনো ব্যাপার না।  নাম (Key) ধরে সরাসরি মান অ্যাসাইন করে দেওয়া যায়।
+
+def greet(name, age):
+    print(f"Hello {name}, you are {age} years old.")
+
+# সিরিয়াল উল্টো হলেও কোনো সমস্যা নেই কারণ কি-ওয়ার্ড বলে দেওয়া আছে
+greet(age=30, name="Abdullah")
+
+
+
+৩. Default Arguments (ডিফল্ট আর্গুমেন্টস)
+ফাংশন ডিফাইন করার সময়ই যদি কোনো প্যারামিটারে একটি ডিফল্ট মান সেট করে দেওয়া হয়, 
+তবে ফাংশন কল করার সময় ওই মানটি না পাঠালেও কোনো এরর দেয় না—ডিফল্ট মানটি নিজে থেকেই বসে যায়।
+
+
+def greet(name, country="Bangladesh"):
+    print(f"Hello {name} from {country}")
+
+greet("Abdullah")              # country না পাঠালেও ডিফল্টভাবে "Bangladesh" ধরে নেবে
+greet("Arman", "Canada")    # চাইলে ওভাররাইড করেও পাঠানো যায়
+
+
+
+
+
+৪. Variable-length Arguments (*args এবং **kwargs):
+
+যেকোনো সংখ্যক বা ডাইনামিক ইনপুট রিসিভ করার জন্য এগুলো ব্যবহার করা হয়:
+
+*args: এটি পজিশনাল আর্গুমেন্টগুলোকে প্যাক করে Tuple বানায়।
+
+**kwargs: এটি কি-ওয়ার্ড আর্গুমেন্টগুলোকে প্যাক করে একটি Dictionary বানায়।
+
+
+
+
 *args কী এবং কেন ব্যবহার করা হয়?
+
 কী বলে একে? (Definition)
+
 *args এর পুরো অর্থ হলো Arguments (তবে মূল জিনিসটি হলো সামনের তারকাচিহ্ন বা *)। 
+
 এটি এমন একটি স্পেশাল প্যারামিটার, যা ফাংশনে অনির্ধারিত বা যত খুশি তত পজিশনাল ইনপুট (Positional Arguments) নিতে পারে।
 
 
 কেন ব্যবহার করা হয়? (Why)
+
 সাধারণত আমরা যখন ফাংশন বানাই, তখন নির্দিষ্ট করে দিতে হয় কয়টি ইনপুট নেব:
 
 def jog(a, b):
@@ -72,6 +130,47 @@ my_function("apple", "banana", "cherry", 100, True)
 
 
 
+def details(*parsonal):
+    return parsonal  # print না করে return করা
+
+result = details("Abdullah", 30, "programming", 'Bangladesh')
+
+print("Returned Result:", result)
+
+
+
+def details(*parsonal):
+    return parsonal  
+
+
+result = details("Abdullah", 30, "programming", 'Bangladesh')
+
+print("Returned Result:", result)
+
+for name in parsonal: Error
+    
+
+ফাংশনের ভেতরে যে parsonal নামটি ব্যবহার করা হয়েছে, সেটি ফাংশনের লোকাল ভেরিয়েবল (Local Variable)। 
+অর্থাৎ, এই parsonal-এর অস্তিত্ব শুধু ফাংশনের ভেতর পর্যন্তই সীমাবদ্ধ। 
+ফাংশনের বাইরে এসে যদি সরাসরি for name in parsonal: লেখেন, 
+তবে পাইথন NameError দিবে (কারণ বাইরে parsonal নামে কিছু চেনে না)।
+
+তাই, ফাংশন থেকে যে ডেটাগুলো বাইরে result ভেরিয়েবলে রিটার্ন হয়ে এসেছে, লুপটি চালাতে হবে সেই result-এর ওপর!
+
+
+def details(*parsonal):
+    return parsonal  
+
+
+result = details("Abdullah", 30, "programming", 'Bangladesh')
+
+print("Returned Result:", result)
+print("----------------------------")
+
+# এখন result এর ওপর for লুপ চালিয়ে একটি একটি করে উপাদান প্রিন্ট করা
+for item in result:
+    print(item)
+
 
 
 
@@ -114,9 +213,24 @@ print_numbers(10, 20, 30, 40, 50)
 
 খেয়াল করি, যতগুলোই মান দিন না কেন, পাইথন সেগুলোকে ব্র্যাকেটের মধ্যে বন্দি করে একটি Tuple (টুপল) বানিয়ে ফেলেছে।
 
-অর্থাৎ, *args হলো জাদুকরী একটা ব্যাগ, যার মধ্যে আপনি যত খুশি মান ফেলতে পারেন 
+অর্থাৎ, *args হলো জাদুকরী একটা ব্যাগ, যার মধ্যে যত খুশি মান ফেলা যাবে
 এবং পাইথন সেগুলোকে টুপল বানিয়ে ব্যাগের ভেতর রেখে দেয়। 
 (args নামটি মেন্ডেটরি নয়, আপনি চাইলে *numbers বা *items ও লিখতে পারেন, তবে কনভেনশন হলো *args লেখা)।
+
+
+
+def num_print(*number):
+    print("Inside function:", number)  # এটি টুপল আকারে প্রিন্ট করবে
+    return number                      # ডেটা বাইরে পাঠিয়ে দেওয়া
+
+# ফাংশন কল করে result ভেরিয়েবলে রাখা
+result = num_print(10, 20, 30, 40, 50)
+
+print("\n--- For Loop Output ---")
+# এখন বাইরে এসে result (অর্থাৎ টুপলটি) এর ওপর লুপ চালানো
+for num in result:
+    print(num)
+
 
 
 
@@ -130,13 +244,49 @@ def sum_all_numbers(*args):
         total += num
     return total
 
-# এখন আপনি যত খুশি সংখ্যা দিয়ে ট্রাই করতে পারেন:
 print(sum_all_numbers(5, 10))             # আউটপুট: 15
 print(sum_all_numbers(1, 2, 3, 4, 5))     # আউটপুট: 15
 print(sum_all_numbers(100, 200, 300))     # আউটপুট: 600
 
 এখানে ইউজার চাইলে ২টি সংখ্যা দিতে পারে, আবার ৫টি বা ১০টি সংখ্যাও দিতে পারে। ফাংশনটি সবার জন্যই পারফেক্টলি কাজ করবে!
 
+
+
+def sum_number(*args):
+    total = 0
+    for num in args:
+        total += num
+        return total
+        
+print(sum_number(10, 5))
+
+লাইন ১: def sum_number(*args):
+পাইথন sum_number নামের ফাংশনটি ডিফাইন করে এবং মেমোরিতে সেভ করে রাখে।
+
+লাইন ৭: print(sum_number(10, 5))
+পাইথন যখন এই লাইনটিতে আসে, তখন সে sum_number ফাংশনটিকে কল করে এবং এর মধ্যে আর্গুমেন্ট হিসেবে 10 এবং 5 পাঠায়।
+এই মানগুলো প্যাক হয়ে args টুপল তৈরি করে, যেখানে মান থাকে (10, 5)।
+
+লাইন ২: total = 0
+ফাংশনের ভেতরে প্রবেশ করার পর total নামের একটি ভেরিয়েবল তৈরি হয় এবং এর মান সেট হয় 0।
+
+লাইন ৩: for num in args:
+লুপ শুরু হয় এবং args টুপল থেকে প্রথম মানটি নিয়ে কাজ শুরু করে।
+এখানে প্রথম মানটির জন্য num ভেরিয়েবলের মান হয় 10।
+
+লাইন ৪: total += numtotal এর বর্তমান মান (0) এর সাথে num এর মান (10) যোগ করা হয়।
+যোগফল হিসাব করে total এর নতুন মান হয় 10।
+
+লাইন ৫: return total
+কোড এই লাইনে পৌঁছানোর সাথে সাথে পাইথন বুঝতে পারে যে ফাংশন থেকে মান রিটার্ন করতে হবে।
+তখন পাইথন total এর মান অর্থাৎ 10 কে ফাংশনের বাইরে পাঠিয়ে দেয় এবং সাথে সাথে ফাংশনটির কাজ চিরতরে বন্ধ করে দেয়।
+
+লুপের বাকি অংশ (দ্বিতীয় উপাদান 5 এর জন্য লুপ ঘোরার কথা ছিল):
+যেহেতু আগের লাইনে return হওয়ার কারণে ফাংশন আগেই বন্ধ হয়ে গেছে, তাই num এর মান যখন 5 হওয়ার কথা ছিল,
+সেই পর্যন্ত কোড আর পৌঁছাতেই পারেনি। ফলে দ্বিতীয় সংখ্যাটি সম্পূর্ণ বাদ পড়ে গেছে।
+
+লাইন ৭ এর শেষ অংশ: print(...)
+ফাংশন থেকে রিটার্ন হওয়া 10 সংখ্যাটি বাইরে এসে প্রিন্ট ফাংশনের মাধ্যমে কনসোলে বা স্ক্রিনে প্রদর্শিত হয়।
 
 
 
@@ -151,21 +301,37 @@ print(sum_all_numbers(100, 200, 300))     # আউটপুট: 600
 নিয়ম: সাধারণ প্যারামিটার এবং *args একসাথে ব্যবহার করলে, সাধারণ প্যারামিটারগুলো আগে বসাতে হয় এবং *args সবসময় শেষে বসাতে হয়।
 
 
-def user_profile(username, *args):
-    print(f"Username: {username}")
-    print(f"User Skills/Tags (*args): {args}")
+def user_profile(user_name, *args):
+    print(f"User_Name: {user_name}")
+    print(f"User_Skills: (*args) {args}")
+    
 
-# ফাংশন কল করা
-user_profile("tanvir_dev", "Python", "FastAPI", "Backend", "Docker")
+user_profile("Abdullah", "Python", "FastApi", "Backend", "Docker")
 
 
-Username: tanvir_dev
-User Skills/Tags (*args): ('Python', 'FastAPI', 'Backend', 'Docker')
+লাইন ১: def user_profile(user_name, *args):
+পাইথন user_profile নামের ফাংশনটিকে ডিফাইন করে। এখানে দুটি প্যারামিটার সেট করা আছে—
+একটি হলো সাধারণ প্যারামিটার user_name এবং অন্যটি ভেরিয়েবল-লেন্থ আর্গুমেন্টের জন্য *args।
 
-এখানে "tanvir_dev" চলে গেছে নির্দিষ্ট প্যারামিটার username-এর কাছে।
+লাইন ৬: user_profile("Abdullah", "Python", "FastApi", "Backend", "Docker")
+কোডের নিচে যখন এই লাইনটি রান হয়, তখন পাইথন user_profile ফাংশনটিকে কল করে এবং ভেতরকার মানগুলোকে দুই ভাগে ভাগ করে নেয়:
 
-আর বাকি যতগুলো মান দেওয়া হয়েছে, সেগুলোকে পাইথন প্যাক করে একটি টুপল বানিয়ে *args-এর ভেতর ঢুকিয়ে দিয়েছে।
+প্রথম মানটি অর্থাৎ "Abdullah" চলে যায় প্রথম প্যারামিটার user_name এর ঘরে।
 
+বাকি সবগুলো মান অর্থাৎ "Python", "FastApi", "Backend", "Docker" একসঙ্গে প্যাক হয়ে *args এর ভেতর একটি টুপল তৈরি করে।
+
+ফলে বর্তমান মানগুলো দাঁড়ায়: user_name = "Abdullah" এবং args = ('Python', 'FastApi', 'Backend', 'Docker')।
+
+লাইন ২: print(f"User_Name: {user_name}")
+পাইথন ফাংশনের ভেতরে প্রবেশ করে প্রথম প্রিন্ট স্টেটমেন্টটি রান করে। user_name এর মান হিসেবে "Abdullah" বসিয়ে কনসোলে প্রিন্ট করে:
+
+User_Name: Abdullah
+
+লাইন ৩: print(f"User_Skills: (*args) {args}")
+
+এরপর পাইথন দ্বিতীয় প্রিন্ট স্টেটমেন্টটি রান করে। args এর জায়গায় পুরো টুপলটি বসিয়ে কনসোলে প্রিন্ট করে
+
+User_Skills: (*args) ('Python', 'FastApi', 'Backend', 'Docker')
 
 
 
@@ -191,6 +357,178 @@ result = multiply(*numbers)  # এটি আসলে multiply(2, 3, 4) এর �
 print("Multiplication Result:", result)  # আউটপুট: 24
 
 
+
+def multiply(a, b, c):
+    return a * b * c
+
+numbers = [2, 3, 4]
+
+result = multiply(*numbers)  
+
+print("Multiplication Result:", result)  
+
+
+লাইন ১: def multiply(a, b, c):
+
+কাজ: পাইথনকে বলে দেওয়া হচ্ছে যে multiply নামের একটি ফাংশন তৈরি করা হচ্ছে। 
+এই ফাংশনটির ভেতরে মোট তিনটি প্যারামিটার বা ইনপুট নেওয়ার জায়গা রাখা হয়েছে, যেগুলোর নাম দেওয়া হয়েছে a, b এবং c।
+
+লাইন ২:     return a * b * c
+
+কাজ: ফাংশনের ভেতরে প্রবেশ করার পর, a, b এবং c এই তিনটি মানকে একে অপরের সাথে গুণ (*) করা হয়। 
+গুণ করার পর যে ফলাফলটি আসে, return কিওয়ার্ডের মাধ্যমে সেটি ফাংশনের বাইরে ফেরত বা পাস করে দেওয়া হয়।
+
+লাইন ৪: numbers = [2, 3, 4]
+
+কাজ: মূল কোডের ভেতরে numbers নামের একটি লিস্ট তৈরি করা হয়েছে, যার ভেতর তিনটি সংখ্যা 2, 3 এবং 4 জমা রাখা আছে।
+
+লাইন ৭: result = multiply(*numbers)
+
+কাজ: এখানে দুটি কাজ একসাথে হয়েছে:
+
+*numbers লেখার কারণে numbers লিস্টের ভেতরের উপাদানগুলো আনপ্যাক বা খুলে গেছে। 
+
+অর্থাৎ লিস্টের 2, 3, 4 মানগুলো আলাদা হয়ে ফাংশনের a, b, c-এর জায়গায় যথাক্রমে 2, 3 এবং 4 হিসেবে পাস হয়েছে।
+
+ফাংশন থেকে যে গুণফলটি রিটার্ন হয়ে এসেছে, তা result নামের একটি ভেরিয়েবলে গিয়ে জমা হয়েছে।
+
+লাইন ৯: print("Multiplication Result:", result)
+
+কাজ: print ফাংশনের মাধ্যমে কনসোলে বা স্ক্রিনে প্রথমে লেখাটি দেখায়, এবং তার সাথে result ভেরিয়েবলে জমা থাকা চূড়ান্ত গুণফলটি প্রিন্ট করে।
+
+
+১. numbers = [2, 3, 4] লিস্টটি গ্লোবাল ভেরিয়েবলে ছিল।
+২. যখন আপনি multiply(*numbers) লিখেছেন, তখন * অপারেটরটি লিস্টটিকে আনপ্যাক (unpack) বা ভেঙে ফেলেছে।
+৩. ফলে লিস্টের ভেতর থেকে উপাদানগুলো বেরিয়ে এসে আলাদা আলাদাভাবে a = 2, b = 3, এবং c = 4 হিসেবে ফাংশনের ভেতরে পাস হয়েছে।
+
+অর্থাৎ, পুরো লিস্টটি একসাথে না গিয়ে এর ভেতরের সংখ্যাগুলো আলাদা হয়ে তিন ভাগে ভাগ হয়ে গেছে।
+
+
+
+def print_letters(first, second, third):
+    print("First:", first)
+    print("Second:", second)
+    print("Third:", third)
+
+word = ["Cat"]  # অথবা সরাসরি স্ট্রিং দেওয়া যায়
+# পাইথনে সরাসরি স্ট্রিং আনপ্যাক করলে অক্ষর আলাদা হয়:
+# word = "CAT" 
+# print_letters(*word)
+
+# লিস্টের ভেতরে স্ট্রিং দিয়ে উদাহরণ দেখি:
+letters = ['A', 'B', 'C']
+print_letters(*letters)
+
+
+
+লাইন ১: def print_letters(first, second, third):
+পাইথন মেমোরিতে print_letters নামের একটি ফাংশন ডিফাইন করে। এই ফাংশনের ভেতরে ইনপুট নেওয়ার জন্য তিনটি প্যারামিটার (first, second, third) প্রস্তুত রাখা হয়।
+
+লাইন ২, ৩ ও ৪:print("First:", first)
+
+print("Second:", second)
+
+print("Third:", third)
+
+ফাংশন ডিফাইন করার সময় এই প্রিন্ট লাইনগুলো সরাসরি রান হয় না, কারণ ফাংশনটি তখনো কল করা হয়নি। এগুলো শুধুমাত্র ফাংশনের ব্লকের ভেতর সংরক্ষিত থাকে।
+
+লাইন ৬: word = ["Cat"]
+মূল কোডের জায়গায় (গ্লোবাল স্কোপে) word নামের একটি লিস্ট তৈরি হয় যার ভেতর ["Cat"] স্ট্রিংটি জমা থাকে। কোডের এই প্রোগ্রামে এই লিস্টটি আর ব্যবহার করা হয়নি।
+
+লাইন ৮: letters = ['A', 'B', 'C']
+গ্লোবাল স্কোপে letters নামের আরেকটি লিস্ট তৈরি হয়, যার ভেতর তিনটি উপাদান রয়েছে: 'A', 'B', এবং 'C'।
+
+লাইন ৯: print_letters(*letters)
+পাইথন যখন এই শেষ লাইনটিতে আসে, তখন সে print_letters ফাংশনটিকে কল করে। 
+ব্র্যাকেটের ভেতরে * অপারেটর থাকার কারণে letters লিস্টটি 
+একসাথে না গিয়ে আনপ্যাক বা ভেঙে যায়। ফলে লিস্টের ভেতর থেকে উপাদানগুলো আলাদা হয়ে ফাংশনের প্যারামিটারে যথাক্রমে বসে যায়:
+
+first = 'A'
+
+second = 'B'
+
+third = 'C'
+
+ফাংশনের ভেতরে প্রবেশ এবং প্রিন্ট হওয়া:
+
+প্রথমে print("First:", first) রান হয় এবং প্রিন্ট করে: First: A
+
+এরপর print("Second:", second) রান হয় এবং প্রিন্ট করে: Second: B
+
+সবশেষে print("Third:", third) রান হয় এবং প্রিন্ট করে: Third: C
+
+ফাংশনের ভেতরকার সমস্ত লাইন সফলভাবে এক্সিকিউট হওয়ার পর প্রোগ্রামটির কাজ শেষ হয়।
+
+
+
+def add_three(x, y, z):
+    return x + y + z
+
+my_tuple = (10, 20, 30)
+
+
+result = add_three(*my_tuple)
+
+print("Addition Result:", result)
+
+
+লাইন ১: def add_three(x, y, z):
+পাইথন add_three নামের একটি ফাংশন ডিফাইন করে মেমোরিতে সেভ করে। এই ফাংশনের ভেতরে ইনপুট নেওয়ার জন্য তিনটি প্যারামিটার বা চলক প্রস্তুত রাখা হয়: x, y, এবং z।
+
+লাইন ২: return x + y + z
+ফাংশন ডিফাইন করার সময় এই লাইনটি রান হয় না, এটি শুধু ফাংশনের ব্লকের ভেতর জমা থাকে। 
+যখন ফাংশনটি কল করা হবে, তখন এটি x, y এবং z-এর মান যোগ করে বাইরে রিটার্ন করবে।
+
+লাইন ৪: my_tuple = (10, 20, 30)
+মূল কোডের জায়গায় (গ্লোবাল স্কোপে) my_tuple নামের একটি টুপল তৈরি হয়, যার ভেতর তিনটি সংখ্যা জমা থাকে: 10, 20, এবং 30।
+
+লাইন ৭: result = add_three(*my_tuple)
+পাইথন যখন এই লাইনটিতে আসে, তখন দুটি কাজ একসঙ্গে ঘটে:
+
+ব্র্যাকেটের ভেতরে থাকা *my_tuple এর কারণে * অপারেটরটি টুপলটিকে আনপ্যাক বা ভেঙে ফেলে। 
+ফলে টুপলের ভেতরকার সংখ্যাগুলো আলাদা হয়ে যায় এবং যথাক্রমে x = 10, y = 20, এবং z = 30 হিসেবে ফাংশনে প্রবেশ করে।
+
+ফাংশনটি রান হয়ে 10 + 20 + 30 এর যোগফল হিসাব করে 60 রিটার্ন করে। সেই রিটার্ন হওয়া 60 মানটি result ভেরিয়েবলে গিয়ে জমা হয়।
+
+লাইন ৯: print("Addition Result:", result)
+পাইথন print ফাংশনের মাধ্যমে কনসোলে লেখাটি এবং result এর মান (60) প্রিন্ট করে। ফলস্বরূপ স্ক্রিনে দেখায়:
+
+Addition Result: 60
+
+
+
+
+
+def show_position(x, y, z):
+    print(f"X-axis: {x}, Y-axis: {y}, Z-axis: {z}")
+
+coordinates = [100, 250, 50]
+
+# লিস্টের মানগুলো * দিয়ে আলাদা করে পাঠানো
+show_position(*coordinates)
+
+
+লাইন ১: def show_position(x, y, z):
+পাইথন show_position নামের একটি ফাংশন ডিফাইন করে মেমোরিতে সেভ করে। 
+এই ফাংশনের ভেতরে ইনপুট নেওয়ার জন্য তিনটি প্যারামিটার বা চলক প্রস্তুত রাখা হয়: x, y, এবং z।
+
+লাইন ২: print(f"X-axis: {x}, Y-axis: {y}, Z-axis: {z}")
+ফাংশন ডিফাইন করার সময় এই প্রিন্ট লাইনটি রান হয় না, এটি শুধুমাত্র ফাংশনের ভেতরে সংরক্ষিত থাকে।
+
+লাইন ৪: coordinates = [100, 250, 50]
+মূল কোডের জায়গায় (গ্লোবাল স্কোপে) coordinates নামের একটি লিস্ট তৈরি হয়, যার ভেতর তিনটি সংখ্যা জমা থাকে: 100, 250, এবং 50।
+
+লাইন ৬: show_position(*coordinates)
+পাইথন যখন এই লাইনটিতে আসে, তখন দুটি কাজ একসঙ্গে ঘটে:
+
+ব্র্যাকেটের ভেতরে থাকা *coordinates এর কারণে * অপারেটরটি লিস্টটিকে আনপ্যাক বা ভেঙে ফেলে। 
+ফলে লিস্টের ভেতরকার সংখ্যাগুলো আলাদা হয়ে যায় এবং যথাক্রমে x = 100, y = 250, এবং z = 50 হিসেবে ফাংশনে প্রবেশ করে।
+
+ফাংশনের ভেতরের প্রিন্ট স্টেটমেন্টটি রান হয় এবং চলকগুলোর মান f-string এর মাধ্যমে ফরম্যাট করে কনসোলে প্রিন্ট করে।
+
+X-axis: 100, Y-axis: 250, Z-axis: 50
+
+
 সারাংশ (Summary):
 বেসিক: যখন জানা থাকে না ইউজার কয়টি ইনপুট পাঠাবে, তখন *args ব্যবহার করা হয়।
 
@@ -199,9 +537,6 @@ print("Multiplication Result:", result)  # আউটপুট: 24
 লুপ: টুপল হওয়ার কারণে এর ওপর লুপ চালিয়ে ডেটা প্রসেস করা যায়।
 
 অ্যাডভান্সড: নির্দিষ্ট প্যারামিটারের সাথে এটি কম্বাইন করে ব্যবহার করা যায় এবং লিস্ট/টুপল আনপ্যাকিংয়ের কাজেও * ব্যবহৃত হয়।
-
-
-
 
 
 
@@ -240,25 +575,55 @@ check_data(101)
 
 নিয়ম: সাধারণ প্যারামিটারকে সবসময় আগে রাখতে হবে, আর *args-কে শেষে বসাতে হবে।
 
-def create_user_profile(username, role, *skills):
+
+def user_profile(username, role, *skills):
     print("Username:", username)
     print("Role:", role)
     print("Skills (Tuple):", skills)
 
-# ফাংশন কল করা
-create_user_profile("tanvir_dev", "Backend Developer", "Python", "FastAPI", "Docker", "PostgreSQL")
+
+user_profile("Abdullah", "Backend Developer", "Python", "FastAPI", "Docker", "PostgreSQL")
 
 
-ড্রাই রান ও আউটপুট:
-প্রথম মান "tanvir_dev" চলে যাবে নির্দিষ্ট প্যারামিটার username-এ।
+লাইন ১: def user_profile(username, role, *skills):
 
-দ্বিতীয় মান "Backend Developer" চলে যাবে role-এ।
+পাইথন user_profile নামের ফাংশনটি ডিফাইন করে মেমোরিতে সেভ করে।
 
-এরপরের যতগুলো দক্ষতা পাঠানো হয়েছে ("Python", "FastAPI", "Docker", "PostgreSQL"), সেগুলো প্যাক হয়ে একটি Tuple বানিয়ে skills (*args নাম দিয়ে) এ জমা হবে।
+এখানে মোট তিনটি প্যারামিটার রয়েছে— username, role এবং ভেরিয়েবল-লেন্থ আর্গুমেন্টের জন্য *skills।
 
-Username: tanvir_dev
+
+print("Username:", username)
+print("Role:", role)
+print("Skills (Tuple):", skills)
+
+
+ফাংশন ডিফাইন করার সময় এই প্রিন্ট লাইনগুলো সরাসরি রান হয় না, কারণ তখনো ফাংশনটি কল করা হয়নি। এগুলো শুধুমাত্র ফাংশনের ব্লকের ভেতর সংরক্ষিত থাকে।
+
+লাইন ৭: user_profile("Abdullah", "Backend Developer", "Python", "FastAPI", "Docker", "PostgreSQL")
+
+পাইথন যখন এই ফাংশন কল করার লাইনটিতে আসে, তখন ব্র্যাকেটের ভেতরে থাকা মানগুলো এভাবে ভাগ হয়ে যায়:
+
+প্রথম মানটি username = "Abdullah" হিসেবে বসে।
+
+দ্বিতীয় মানটি role = "Backend Developer" হিসেবে বসে।
+
+বাকি সব মান একসঙ্গে প্যাক হয়ে একটি টুপল তৈরি করে এবং skills প্যারামিটারে জমা হয়: skills = ('Python', 'FastAPI', 'Docker', 'PostgreSQL')।
+
+ফাংশনের ভেতরে প্রবেশ এবং প্রিন্ট হওয়া:
+
+লাইন ২ রান হয়: print("Username:", username) লাইনটি রান হয়ে কনসোলে প্রিন্ট করে:
+
+Username: Abdullah
+
+লাইন ৩ রান হয়: print("Role:", role) লাইনটি রান হয়ে কনসোলে প্রিন্ট করে:
+
 Role: Backend Developer
+
+লাইন ৪ রান হয়: print("Skills (Tuple):", skills) লাইনটি রান হয়ে কনসোলে প্রিন্ট করে:
+
 Skills (Tuple): ('Python', 'FastAPI', 'Docker', 'PostgreSQL')
+
+ফাংশনের ভেতরের সমস্ত লাইন সফলভাবে এক্সিকিউট হওয়ার পর প্রোগ্রামটির কাজ শেষ হয়।
 
 
 ধাপ ১: সাধারণ সমস্যা (নির্দিষ্ট লিমিট থাকা)।
@@ -274,25 +639,48 @@ Skills (Tuple): ('Python', 'FastAPI', 'Docker', 'PostgreSQL')
 
 
 
+def user_profile(username, role, *skills):
+    # সব তথ্য একটি ডিকশনারিতে সাজিয়ে রিটার্ন করা হলো
+    profile_data = {
+        "User": username,
+        "Job Role": role,
+        "All Skills": skills
+    }
+    return profile_data
 
-def add_all(*args):
-    total = 0
-    for num in args:
-        total += num
-    return total  # যোগফলটি বাইরে পাঠিয়ে দেওয়া
+# ফাংশন কল করে রিটার্ন হওয়া মানটি result ভেরিয়েবলে রাখা হলো
+result = user_profile("Abdullah", "Backend Developer", "Python", "FastAPI", "Docker", "PostgreSQL")
 
-# ফাংশন কল করে রেজাল্ট প্রিন্ট করা
-result = add_all(5, 10, 15)
-print("Result:", result)
+print("Returned Result:", result)
 
 
-এখানে add_all(5, 10, 15) দিলেন।
+লাইন ১: def user_profile(username, role, *skills):
 
-*args-এর ভেতরে সেগুলো টুপল হয়ে গেল: (5, 10, 15)।
+পাইথন user_profile নামের ফাংশনটি ডিফাইন করে। এখানে তিনটি প্যারামিটার রয়েছে— username, role এবং ভেরিয়েবল-লেন্থ আর্গুমেন্টের জন্য *skills।
 
-লুপ চালিয়ে সবগুলোর যোগফল total ভেরিয়েবলে জমলো (30)।
+লাইন ৭: result = user_profile("Abdullah", "Backend Developer", "Python", "FastAPI", "Docker", "PostgreSQL")
 
-সবশেষে return total দিয়ে সেই রেজাল্টটি বাইরে পাঠিয়ে দেওয়া হলো এবং আমরা print করে তা দেখতে পেলাম।
+পাইথন যখন এই লাইনটিতে আসে, তখন মানগুলো এভাবে ভাগ হয়ে যায়:
+
+username = "Abdullah"
+
+role = "Backend Developer"
+
+বাকি সব স্কিল একসঙ্গে প্যাক হয়ে হয়ে যায়: skills = ('Python', 'FastAPI', 'Docker', 'PostgreSQL')
+
+লাইন ২ থেকে ৫ (ফাংশনের ভেতর):
+
+profile_data নামের একটি ডিকশনারি তৈরি হয় যেখানে ইউজারনেম, রোল এবং skills টুপলটি সংরক্ষিত হয়।
+
+লাইন ৬: return profile_data
+
+return কিওয়ার্ডের মাধ্যমে সম্পূর্ণ ডিকশনারিটি ফাংশনের বাইরে result ভেরিয়েবলের কাছে পাঠিয়ে দেওয়া হয় এবং ফাংশনটির কাজ শেষ হয়।
+
+লাইন ৯: print("Returned Result:", result)
+
+print ফাংশনের মাধ্যমে বাইরে রিটার্ন হয়ে আসা ডেটা কনসোলে প্রিন্ট হয়।
+
+
 
 
 
@@ -345,6 +733,38 @@ print("Division Result:", calculate("divide", 100, 2, 5))       # আউট�
 
 
 
+প্রথমে পাইথন calculate নামের ফাংশনটি ডিফাইন করে মেমোরিতে সেভ করে রাখে (এর ভেতরের লজিকগুলো তখনো রান হয় না)।
+এরপর নিচে থেকে সিরিয়ালি প্রিন্ট ফাংশনগুলোর মাধ্যমে একে একে ফাংশনটি কল করা হয়।
+
+
+প্রথম টেস্ট কেস: print("Addition Result:", calculate("add", 10, 5, 2))
+পাইথন যখন calculate("add", 10, 5, 2) কল করে, তখন operation = "add" এবং args = (10, 5, 2) হয়। 
+ফাংশনের ভেতরে ঢুকে if not args: চেক করে দেখে args-এ মান আছে, তাই এটি স্কিপ করে।
+এরপর result = args[0] এর কারণে result এর মান হয় 10। প
+রবর্তীতে if operation == "add": শর্ত সত্যি হওয়ায় লুপটি args[1:] অর্থাৎ (5, 2) এর ওপর চালানো হয়।
+প্রথমে num = 5 হলে result এর মান হয় 10 + 5 = 15, এরপর num = 2 হলে result এর মান হয় 15 + 2 = 17। 
+সবশেষে লুপ শেষ করে return result এর মাধ্যমে 17 রিটার্ন হয়ে বাইরে আসে এবং প্রিন্ট হয়ে দেখায়: Addition Result: 17।
+
+দ্বিতীয় টেস্ট কেস: print("Subtraction Result:", calculate("subtract", 20, 5, 3))
+এখানে operation = "subtract" এবং args = (20, 5, 3) হয়। result = args[0] এর মাধ্যমে result এর প্রাথমিক মান হয় 20।
+এরপর elif operation == "subtract": শর্ত মিলে যাওয়ায় লুপটি args[1:] অর্থাৎ (5, 3) নিয়ে কাজ শুরু করে।
+প্রথমে num = 5 হলে result হয় 20 - 5 = 15, এরপর num = 3 হলে result হয় 15 - 3 = 12।
+সবশেষে রিটার্ন হওয়া 12 প্রিন্ট হয়ে দেখায়: Subtraction Result: 12।
+
+তৃতীয় টেস্ট কেস: print("Multiplication Result:", calculate("multiply", 2, 3, 4))
+এখানে operation = "multiply" এবং args = (2, 3, 4) হয়। result এর প্রাথমিক মান হয় 2 (args[0])।
+এরপর elif operation == "multiply": শর্তের কারণে লুপ চলে args[1:] অর্থাৎ (3, 4) এর ওপর। 
+প্রথমে num = 3 হলে result হয় 2 * 3 = 6, এরপর num = 4 হলে result হয় 6 * 4 = 24। 
+সবশেষে রিটার্ন হওয়া 24 প্রিন্ট হয়ে দেখায়: Multiplication Result: 24।
+
+চতুর্থ টেস্ট কেস: print("Division Result:", calculate("divide", 100, 2, 5))
+এখানে operation = "divide" এবং args = (100, 2, 5) হয়। 
+result এর প্রাথমিক মান হয় 100। এরপর elif operation == "divide": শর্তের অধীনে লুপটি args[1:] অর্থাৎ (2, 5) নিয়ে কাজ করে।
+প্রথম ইটারেশনে num = 2 (যা শূন্য নয়), তাই result হয় 100 / 2 = 50.0। দ্বিতীয় ইটারেশনে num = 5 (যা শূন্য নয়), 
+তাই result হয় 50.0 / 5 = 10.0। সবশেষে রিটার্ন হওয়া 10.0 প্রিন্ট হয়ে দেখায়: Division Result: 10.0।
+
+
+
 
 
 শুধু যোগ করার জন্য (+) *args
@@ -362,6 +782,7 @@ print("Addition:", add_numbers(2, 4, 6, 8, 10))  # আউটপুট: 30
 
 
 
+
 ২. শুধু বিয়োগ করার জন্য (-) *args
 প্রথম সংখ্যাটি থেকে পরের সংখ্যাগুলো একে একে বিয়োগ করার কোড:
 
@@ -369,13 +790,118 @@ def sub_numbers(*args):
     if not args:
         return 0
     
-    result = args[0]  # প্রথম সংখ্যা দিয়ে শুরু
-    for num in args[1:]:
+    result = args[0]  # প্রথম সংখ্যা দিয়ে শুরু
+    for num in args[1:]
         result -= num
     return result
 
 # টেস্ট করা যাক:
-print("Subtraction:", sub_numbers(50, 10, 5))    # আউটপুট: 35 (50 - 10 - 5)
+print("Subtraction:", sub_numbers(50, 10, 5))
+
+
+
+1. def sub_numbers(*args):
+
+পাইথন sub_numbers নামের একটি ফাংশন তৈরি করে রাখে।
+
+এখানে সামনে একটি স্টার বা অ্যাস্টারিস্ক (*args) দেওয়া আছে। এর মানে হলো এখানে ইচ্ছেমতো যত খুশি সংখ্যা পাঠাতে পারেন। 
+পাইথন ওই সব সংখ্যাকে একসাথে প্যাক করে একটি টুপল (Tuple) বানিয়ে ফেলবে।
+
+
+
+২. খালি চেক করা:
+
+Python
+    if not args:
+        return 0
+
+পাইথন চেক করে দেখে যে args-এর ভেতরে কোনো সংখ্যা পাঠানো হয়েছে কি না। যদি কোনো সংখ্যা না দিয়ে শুধু ফাঁকা রাখা হতো,
+তবে এটি 0 রিটার্ন করে ফাংশন বন্ধ করে দিত। কিন্তু আমাদের কোডে সংখ্যা দেওয়া আছে, 
+তাই এই শর্তটি মিথ্যে (False) হয় এবং পাইথন এটি স্কিপ করে নিচের লাইনে চলে যায়।
+
+
+৩. প্রথম সংখ্যা দিয়ে শুরু করা:
+
+result = args[0]
+
+যখন আমরা ফাংশনটি কল করেছি (sub_numbers(50, 10, 5)), তখন args-এর ভেতরে থাকা মানগুলো টুপল আকারে এভাবে জমা হয়েছে: (50, 10, 5)।
+
+পাইথনে ইনডেক্স শুরু হয় 0 থেকে। তাই args[0] মানে হলো একদম প্রথম সংখ্যাটি, অর্থাৎ 50।
+
+এই 50 সংখ্যাটিকে result নামের একটি বাক্সে বা ভেরিয়েবলে রেখে দেওয়া হলো। এখন আমাদের result = 50।
+
+
+
+৪. লুপ শুরু করা (for num in args[1:]):
+
+
+for num in args[1:]
+
+এখানে args[1:] মানে হলো প্রথম সংখ্যাটি বাদ দিয়ে বাকি সব সংখ্যাগুলো নেওয়া। আমাদের পুরো লিস্ট বা টুপল ছিল (50, 10, 5)। এর প্রথমটি (50) বাদ দিলে বাকি থাকে 10 এবং 5।
+
+এখন এই লুপটি পালা করে একবার 10 এবং একবার 5 নিয়ে কাজ করবে।
+
+
+
+৫. লুপের প্রথম ঘুরে আসা (Iteration 1):
+
+লুপ যখন প্রথমবার ঘোরে, তখন num-এর মান হয় 10।
+
+পরের লাইনটি রান হয়:
+
+
+result -= num
+
+এর মানে হলো: result = result - num
+
+এখানে result-এর আগের মান ছিল 50 এবং num-এর মান 10।
+
+তাহলে হিসাব হয়: 50 - 10 = 40।
+
+এখন result-এর নতুন মান হয়ে গেল 40।
+
+
+
+
+৬. লুপের দ্বিতীয় ঘুরে আসা (Iteration 2):
+
+
+লুপ যখন দ্বিতীয়বার ঘোরে, তখন num-এর মান হয় টুপলের শেষ সংখ্যাটি, অর্থাৎ 5।
+
+আবার ওই একই লাইন রান হয়:
+
+result -= num
+
+এখানে result-এর বর্তমান মান 40 এবং num-এর মান 5।
+
+তাহলে হিসাব হয়: 40 - 5 = 35।
+
+এখন result-এর চূড়ান্ত মান হলো 35।
+
+এরপর টুপলে আর কোনো সংখ্যা নেই, তাই লুপের কাজ শেষ।
+
+
+
+৭. ফলাফল রিটার্ন করা:
+
+return result
+
+
+লুপ শেষ হওয়ার পর result বাক্সের ভেতর জমা থাকা চূড়ান্ত মান অর্থাৎ 35 কে return কিওয়ার্ডের মাধ্যমে ফাংশনের বাইরে পাঠিয়ে দেওয়া হয়।
+
+
+৮. প্রিন্ট করা:
+
+print("Subtraction:", sub_numbers(50, 10, 5))
+
+ফাংশন থেকে বাইরে বেরিয়ে আসা 35 মানটি print ফাংশনের কাছে পৌঁছায়।
+
+ফলে স্ক্রিনে বা কনসোলে প্রিন্ট হয়ে দেখায়:
+
+Plaintext
+Subtraction: 35
+
+
 
 
 
@@ -387,14 +913,74 @@ def multiply_numbers(*args):
     if not args:
         return 1
         
-    result = 1  # গুণের ক্ষেত্রে ১ দিয়ে শুরু করতে হয় (০ দিলে সব জিরো হয়ে যাবে)
+    result = 1  # গুণের ক্ষেত্রে ১ দিয়ে শুরু করতে হয়
     for num in args:
         result *= num
     return result
 
-# টেস্ট করা যাক:
-print("Multiplication:", multiply_numbers(2, 3, 4))      # আউটপুট: 24 (2 * 3 * 4)
-print("Multiplication:", multiply_numbers(5, 5))         # আউটপুট: 25 (5 * 5)
+print("Multiplication:", multiply_numbers(2, 3, 4))
+print("Multiplication:", multiply_numbers(5, 5))
+
+
+
+কেন result = 1 দেওয়া হয়েছে? (নোট বা লজিক)
+যোগ করার সময় আমরা result = 0 দিয়ে শুরু করি, কারণ শূন্যের সাথে কোনো সংখ্যা যোগ করলে মানের কোনো পরিবর্তন হয় না। কিন্তু গুণের ক্ষেত্রে যদি 0 দিয়ে শুরু করতেন, তবে যেকোনো সংখ্যার সাথে 0 গুণ হয়ে পুরো ফলাফল 0 হয়ে যেত! তাই গুণের ক্ষেত্রে এমন একটি সংখ্যা দিয়ে শুরু করতে হয় যা গুণফলকে বদলায় না, আর সেটি হলো 1 (যাকে ম্যাথে Multiplicative Identity বলে)।
+
+লাইন বাই লাইন ড্রাই রান (প্রথম টেস্ট কেস: multiply_numbers(2, 3, 4)):
+১. ফাংশন ডিফাইন:
+
+পাইথন multiply_numbers ফাংশনটি মেমোরিতে সেভ করে। *args থাকার কারণে (2, 3, 4) সংখ্যাগুলো একসাথে প্যাক হয়ে টুপল আকারে args-এর ভেতরে চলে আসে: args = (2, 3, 4)।
+
+২. খালি চেক করা (if not args:):
+
+পাইথন চেক করে দেখে args-এ মান আছে কি না। যেহেতু সংখ্যা দেওয়া আছে, তাই শর্তটি মিথ্যা (False) হয় এবং পাইথন এটি স্কিপ করে নিচে চলে যায়।
+
+৩. ইনিশিয়ালাইজেশন (result = 1):
+
+গুণের হিসাব শুরু করার জন্য result নামের বাক্সে প্রাথমিক মান 1 রাখা হলো।
+
+৪. লুপ চালানো (for num in args:):
+
+এখানে কোনো args[1:] বাদ দেওয়া হয়নি, বরং পুরো টুপলটির ওপর (2, 3, 4) লুপ ঘুরবে।
+
+প্রথম ইটারেশন: num = 2
+
+হিসাব: result *= 2 (অর্থাৎ 1 * 2 = 2)
+
+এখন result-এর মান হলো 2।
+
+দ্বিতীয় ইটারেশন: num = 3
+
+হিসাব: result *= 3 (অর্থাৎ আগের 2 * 3 = 6)
+
+এখন result-এর মান হলো 6।
+
+তৃতীয় ইটারেশন: num = 4
+
+হিসাব: result *= 4 (অর্থাৎ আগের 6 * 4 = 24)
+
+এখন result-এর চূড়ান্ত মান হলো 24।
+
+৫. রিটার্ন ও প্রিন্ট:
+
+লুপ শেষ হওয়ার পর return result এর মাধ্যমে 24 বাইরে চলে আসে।
+
+print ফাংশনের কারণে এক লাইনে আউটপুট দেখায়:Multiplication: 24
+
+দ্বিতীয় টেস্ট কেস: multiply_numbers(5, 5)
+এখানে args = (5, 5)।
+
+result = 1 দিয়ে শুরু হয়।
+
+লুপ ঘোরে দুইবার:
+
+প্রথমবার num = 5 হলে: 1 * 5 = 5 (result এখন 5)
+
+দ্বিতীয়বার num = 5 হলে: 5 * 5 = 25 (result এখন 25)
+
+রিটার্ন হয়ে বাইরে আসে 25।
+
+আউটপুট দেখায়:Multiplication: 25
 
 
 
@@ -413,49 +999,10 @@ def divide_numbers(*args):
         result /= num
     return result
 
-# টেস্ট করা যাক:
-print("Division:", divide_numbers(100, 2, 5))    # আউটপুট: 10.0 (100 / 2 = 50, তারপর 50 / 5 = 10.0)
+print("Division:", divide_numbers(100, 2, 5))
 
 
 
-
-
-
-def analyze_scores(*args):
-    # যদি কোনো স্কোর দেওয়া না হয়
-    if not args:
-        return "No scores provided!"
-    
-    total_exams = len(args)             # মোট পরীক্ষার সংখ্যা
-    total_marks = sum(args)             # সব নম্বরের যোগফল
-    average_marks = total_marks / total_exams  # গড় নম্বর
-    highest_mark = max(args)            # সর্বোচ্চ নম্বর
-    lowest_mark = min(args)             # সর্বনিম্ন নম্বর
-    
-  
-    summary = {
-        "Total Exams": total_exams,
-        "Total Marks": total_marks,
-        "Average": round(average_marks, 2), # দশমিকের পর দুই ঘর রাখা
-        "Highest": highest_mark,
-        "Lowest": lowest_mark
-    }
-    
-    return summary
-
-
-# একজন ছাত্র ৫টি বিষয়ে আলাদা নম্বর পেয়েছে:
-result1 = analyze_scores(85, 90, 78, 92, 88)
-print("Student 1 Summary:", result1)
-
-# আরেকজন ছাত্র ৩টি বিষয়ে নম্বর পেয়েছে:
-result2 = analyze_scores(70, 65, 95)
-print("\nStudent 2 Summary:", result2)
-
-
-Student 1 Summary: {'Total Exams': 5, 'Total Marks': 433, 'Average': 86.6, 'Highest': 92, 'Lowest': 78}
-
-Student 2 Summary: {'Total Exams': 3, 'Total Marks': 230, 'Average': 76.67, 'Highest': 95, 'Lowest': 65}
 
 
 
@@ -470,6 +1017,125 @@ Student 2 Summary: {'Total Exams': 3, 'Total Marks': 230, 'Average': 76.67, 'Hig
 
 
 
+def analyze_scores(*args):
+    if not args:
+        return "No scores provided!"
+    
+    total_exams = len(args)             # মোট পরীক্ষার সংখ্যা
+    total_marks = sum(args)             # সব নম্বরের যোগফল
+    average_marks = total_marks / total_exams  # গড় নম্বর
+    highest_mark = max(args)            # সর্বোচ্চ নম্বর
+    lowest_mark = min(args)             # সর্বনিম্ন নম্বর
+    
+    summary = {
+        "Total Exams": total_exams,
+        "Total Marks": total_marks,
+        "Average": round(average_marks, 2), # দশমিকের পর দুই ঘর রাখা
+        "Highest": highest_mark,
+        "Lowest": lowest_mark
+    }
+    
+    return summary
+
+result1 = analyze_scores(85, 90, 78, 92, 88)
+print("Student 1 Summary:", result1)
+
+result2 = analyze_scores(70, 65, 95)
+print("\nStudent 2 Summary:", result2)
+
+
+১. ফাংশন ডিফাইন:
+
+পাইথন analyze_scores নামের ফাংশনটি মেমোরিতে সেভ করে রাখে। 
+এখানে *args থাকার কারণে যতগুলো খুশি নম্বর একসাথে পাস করা যাবে এবং পাইথন সেগুলোকে একটি টুপল (Tuple) বানিয়ে নেবে।
+
+প্রথম টেস্ট কেস: analyze_scores(85, 90, 78, 92, 88)
+কল করা ও আর্গুমেন্ট প্যাক হওয়া:
+
+যখন result1 = analyze_scores(85, 90, 78, 92, 88) রান হয়, তখন সংখ্যাগুলো একটি টুপলে জমা হয়:
+
+args = (85, 90, 78, 92, 88)
+
+খালি চেক (if not args:):
+
+পাইথন চেক করে দেখে টুপলে মান আছে কি না। যেহেতু সংখ্যা দেওয়া আছে, তাই এটি পাস করে নিচে চলে যায়।
+
+হিসাব-নিকাশ করা (লাইন ৪ থেকে ৮):
+
+total_exams = len(args)
+
+পাইথনের len() ফাংশন টুপলের ভেতর কয়টি উপাদান আছে তা গুনে বের করে। এখানে মোট ৫টি সংখ্যা আছে, তাই total_exams = 5।
+
+total_marks = sum(args)
+
+পাইথনের sum() ফাংশন সব সংখ্যাগুলো নিজেদের মধ্যে যোগ করে। অর্থাৎ: 85 + 90 + 78 + 92 + 88 = 433। তাই total_marks = 433।
+
+average_marks = total_marks / total_exams
+
+মোট নম্বরকে পরীক্ষার সংখ্যা দিয়ে ভাগ করা হয়: 433 / 5 = 86.6। তাই average_marks = 86.6।
+
+highest_mark = max(args)
+
+পাইথনের max() ফাংশন টুপল থেকে সবচেয়ে বড় সংখ্যাটি খুঁজে বের করে। এখানে সবচেয়ে বড় সংখ্যা 92।
+
+lowest_mark = min(args)
+
+পাইথনের min() ফাংশন টুপল থেকে সবচেয়ে ছোট সংখ্যাটি খুঁজে বের করে। এখানে সবচেয়ে ছোট সংখ্যা 78।
+
+ডিকশনারি তৈরি (summary):
+
+হিসাব করা মানগুলো নিয়ে একটি ডিকশনারি তৈরি হয়। যেখানে round(average_marks, 2) এর মাধ্যমে গড় নম্বরকে দশমিকের পর দুই ঘরে ঠিক রাখা হয় (যদিও এখানে 86.6 ই থাকে)।
+
+তৈরি হওয়া ডিকশনারিটি হলো:
+
+{'Total Exams': 5, 'Total Marks': 433, 'Average': 86.6, 'Highest': 92, 'Lowest': 78}
+
+রিটার্ন ও প্রিন্ট:
+
+return summary এর মাধ্যমে এই ডিকশনারিটি বাইরে এসে result1 ভেরিয়েবলে জমা হয়।
+
+print("Student 1 Summary:", result1) লাইনটি প্রিন্ট করে:
+
+Student 1 Summary: {'Total Exams': 5, 'Total Marks': 433, 'Average': 86.6, 'Highest': 92, 'Lowest': 78}
+
+দ্বিতীয় টেস্ট কেস: analyze_scores(70, 65, 95)
+কল করা ও আর্গুমেন্ট প্যাক হওয়া:
+
+যখন result2 = analyze_scores(70, 65, 95) রান হয়, তখন টুপলটি হয়:
+
+args = (70, 65, 95)
+
+হিসাব-নিকাশ করা:
+
+total_exams = len(args) → মোট ৩টি সংখ্যা থাকায় total_exams = 3।
+
+total_marks = sum(args) → যোগফল: 70 + 65 + 95 = 230।
+
+average_marks = total_marks / total_exams → গড়: 230 / 3 = 76.6666...।
+
+round(average_marks, 2) → রাউন্ড করে দশমিকের পর দুই ঘর পর্যন্ত নেওয়া হয়: 76.67।
+
+highest_mark = max(args) → সর্বোচ্চ সংখ্যা 95।
+
+lowest_mark = min(args) → সর্বনিম্ন সংখ্যা 65।
+
+ডিকশনারি তৈরি (summary):
+
+তৈরি হওয়া ডিকশনারিটি হলো:
+
+{'Total Exams': 3, 'Total Marks': 230, 'Average': 76.67, 'Highest': 95, 'Lowest': 65}
+
+রিটার্ন ও প্রিন্ট:
+
+return summary এর মাধ্যমে এটি result2 তে আসে।
+
+print("\nStudent 2 Summary:", result2) লাইনটি প্রিন্ট করে (এখানে \n থাকায় এক লাইন ফাঁকা রেখে নিচে প্রিন্ট হয়):
+
+Student 2 Summary: {'Total Exams': 3, 'Total Marks': 230, 'Average': 76.67, 'Highest': 95, 'Lowest': 65}
+
+
+
+
 
 
 ইউজার বয়স ভ্যালিডেশন (Age Verification API)
@@ -480,26 +1146,117 @@ Student 2 Summary: {'Total Exams': 3, 'Total Marks': 230, 'Average': 76.67, 'Hig
 
 
 def check_event_eligibility(*ages):
-    # যদি কোনো বয়স বা ইনপুট না দেওয়া হয়
     if not ages:
         return "No participant ages provided!"
     
     allowed_users = []
     blocked_users = []
     
-    # লুপ চালিয়ে প্রতিটি বয়সের ওপর কন্ডিশন চেক করা
     for age in ages:
         if age >= 18:
-            allowed_users.append(age)  # প্রাপ্তবয়স্ক হলে অ্যালাউ লিস্টে যাবে
+            allowed_users.append(age)  
         else:
-            blocked_users.append(age)  # ১৮ এর নিচে হলে ব্লক লিস্টে যাবে
+            blocked_users.append(age)  
             
-    # ফাইনাল রিপোর্ট রিটার্ন করা
     return {
         "Allowed Users (18+)": allowed_users,
         "Blocked Users (Under 18)": blocked_users
     }
 
-
 result = check_event_eligibility(25, 16, 30, 17, 22, 40)
 print(result)
+
+
+
+১. ফাংশন ডিফাইন করা (def check_event_eligibility(*ages):):
+
+পাইথন check_event_eligibility নামের একটি ফাংশন তৈরি করে মেমোরিতে জমা রাখে।
+
+এখানে *ages ব্যবহার করার কারণে যত খুশি বয়স বা সংখ্যা একসাথে পাস করা যাবে এবং পাইথন সেগুলোকে একটি টুপল (Tuple) বানিয়ে ages ভেরিয়েবলের ভেতর রাখবে।
+
+২. খালি চেক করা (if not ages:):
+
+পাইথন চেক করে দেখে ages টুপলটি খালি কি না। যদি ইউজার কোনো বয়স না দিয়ে ফাংশন কল করত, তবে এটি "No participant ages provided!" রিটার্ন করে বন্ধ হয়ে যেত। কিন্তু আমাদের কোডে বয়স দেওয়া আছে, তাই এই শর্তটি মিথ্যা (False) হয় এবং পাইথন এটি স্কিপ করে নিচে চলে যায়।
+
+৩. দুটি খালি লিস্ট তৈরি (allowed_users = [] এবং blocked_users = []):
+
+প্রাপ্তবয়স্ক (18 বা তার বেশি) বয়সগুলোকে জমা করার জন্য allowed_users নামের একটি খালি লিস্ট তৈরি করা হলো।
+
+এবং অপ্রাপ্তবয়স্ক (18-এর কম) বয়সগুলোকে জমা করার জন্য blocked_users নামের আরেকটি খালি লিস্ট তৈরি করা হলো।
+
+৪. লুপ শুরু করা (for age in ages:):
+
+আমাদের ইনপুটে বয়সগুলো টুপল আকারে এভাবে আছে: (25, 16, 30, 17, 22, 40)।
+
+এই for লুপটি একে একে এই টুপলের প্রতিটি বয়সের ওপর ঘুরবে এবং নিচের শর্তগুলো যাচাই করবে।
+
+লুপের একে একে ঘুরে আসা (Iterations):
+প্রথম ইটারেশন (age = 25):
+
+চেক করা হয়: if age >= 18: (অর্থাৎ ২৫ কি ১৮ বা তার বেশি? হ্যাঁ, সত্য)।
+
+তাই allowed_users.append(25) রান হয়। ফলে allowed_users লিস্টে 25 যোগ হয়।
+
+বর্তমান অবস্থা: allowed_users = [25], blocked_users = []
+
+দ্বিতীয় ইটারেশন (age = 16):
+
+চেক করা হয়: if age >= 18: (১৬ কি ১৮ বা তার বেশি? না, মিথ্যা)।
+
+তাই else ব্লকে চলে যায় এবং blocked_users.append(16) রান হয়। ফলে blocked_users লিস্টে 16 যোগ হয়।
+
+বর্তমান অবস্থা: allowed_users = [25], blocked_users = [16]
+
+তৃতীয় ইটারেশন (age = 30):
+
+চেক করা হয়: if age >= 18: (৩০ কি ১৮ বা তার বেশি? হ্যাঁ, সত্য)।
+
+allowed_users.append(30) রান হয়।
+
+বর্তমান অবস্থা: allowed_users = [25, 30], blocked_users = [16]
+
+চতুর্থ ইটারেশন (age = 17):
+
+চেক করা হয়: if age >= 18: (১৭ কি ১৮ বা তার বেশি? না, মিথ্যা)।
+
+else ব্লকে গিয়ে blocked_users.append(17) রান হয়।
+
+বর্তমান অবস্থা: allowed_users = [25, 30], blocked_users = [16, 17]
+
+পঞ্চম ইটারেশন (age = 22):
+
+চেক করা হয়: if age >= 18: (২২ কি ১৮ বা তার বেশি? হ্যাঁ, সত্য)।
+
+allowed_users.append(22) রান হয়।
+
+বর্তমান অবস্থা: allowed_users = [25, 30, 22], blocked_users = [16, 17]
+
+ষষ্ঠ ও শেষ ইটারেশন (age = 40):
+
+চেক করা হয়: if age >= 18: (৪০ কি ১৮ বা তার বেশি? হ্যাঁ, সত্য)।
+
+allowed_users.append(40) রান হয়।
+
+চূড়ান্ত লিস্ট দুটি হলো:
+
+allowed_users = [25, 30, 22, 40]
+
+blocked_users = [16, 17]
+
+
+৫. ডিকশনারি রিটার্ন করা:
+
+লুপের কাজ শেষ হওয়ার পর একটি ডিকশনারি তৈরি হয় যা সাজানো লিস্ট দুটিকে রিটার্ন করে:
+
+Python
+{
+    "Allowed Users (18+)": [25, 30, 22, 40],
+    "Blocked Users (Under 18)": [16, 17]
+}
+এই ডিকশনারিটি result ভেরিয়েবলে এসে জমা হয়।
+
+৬. প্রিন্ট করা (print(result)):
+
+print ফাংশনের মাধ্যমে চূড়ান্ত ফলাফলটি কনসোলে আউটপুট হিসেবে প্রিন্ট হয়:
+
+{'Allowed Users (18+)': [25, 30, 22, 40], 'Blocked Users (Under 18)': [16, 17]}
