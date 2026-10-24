@@ -47,7 +47,21 @@ fruits = ['apple', 'banana', 'mango', 'apple']
 unique_fruits = list(set(fruits))
 
 print(unique_fruits)
-# সম্ভাব্য আউটপুট: ['apple', 'banana', 'mango'] (ক্রম বদলে যেতে পারে)
+# সম্ভাব্য আউটপুট: ['apple', 'banana', 'mango'] (ক্রম বদলে যেতে পারে) (অর্ডার জরুরি না হলে)
+
+
+
+dict.fromkeys() ব্যবহার করে (অর্ডার বজায় রেখে সবচেয়ে সেরা উপায়)
+পাইথন ৩.৭+ ভার্সন থেকে ডিকশনারি আইটেমের ক্রমানুসার (order) বজায় রাখে। এটি অত্যন্ত দ্রুত কাজ করে:
+
+fruits = ['apple', 'banana', 'mango', 'apple']
+unique_fruits = list(dict.fromkeys(fruits))
+
+print(unique_fruits)
+# Output: ['apple', 'banana', 'mango']
+
+
+
 
 
 
@@ -199,6 +213,15 @@ a, b, c = fruits
 print(a, b, c)  apple banana mango
 
 
+
+পাইথনে আনপ্যাক করার সময় কোনো ভেরিয়েবলের আগে স্টার (*) ব্যবহার করলে, মূল কালেকশনটি (যেমন এখানে টাপল nums) যেটাই হোক না কেন,
+স্টার দেওয়া ভেরিয়েরিটি সবসময় একটি লিস্ট (List) হয়ে যায়।
+
+nums = (10, 20, 30)
+a, *b = nums
+
+print(a, type(a))
+print(b, type(b))
 
 
 
