@@ -23,6 +23,147 @@ Anonymous Function (Lambda Function)
 
 
 
+variable = lambda arguments: expression
+
+১. variable: এটি হলো ফাংশনটির নাম বা ভেরিয়েবল, যার মধ্যে ল্যাম্বডা ফাংশনটিকে স্টোর করা হয়।
+
+২. lambda: এটি পাইথনের একটি রিজার্ভড কিওয়ার্ড, যা পাইথনকে বলে দেয় যে আমরা একটি অ্যানোনিমাস (নামহীন) ফাংশন তৈরি করতে যাচ্ছি।
+
+৩. arguments: এখানে ফাংশনের ইনপুট প্যারামিটারগুলো বসবে (একাধিক হলে কমা দিয়ে লিখতে হয়, যেমন: x, y অথবা কোনো প্যারামিটার না থাকলে ফাঁকা রাখা যায়)।
+
+৪.  : (কোলন): এটি প্যারামিটার এবং কাজের অংশকে আলাদা করে।
+
+৫. expression: এটি হলো মূল লজিক বা হিসাব-নিকাশ। কোলনের পরে যা লেখা হয়, ল্যাম্বডা ফাংশন স্বয়ংক্রিয়ভাবে (implicitly) সেটাই রিটার্ন করে।
+
+
+
+double = lambda x: x * 2
+
+print(double(5)) # আউটপুট: 10
+
+
+add = lambda a, b: a + b
+
+print(add(10, 20)) # আউটপুট: 30
+
+
+
+say_hello = lambda: "Hello, Backend Developer!"
+
+print(say_hello()) # আউটপুট: Hello, Backend Developer!
+
+
+
+
+
+# ১. সংখ্যা দ্বিগুণ করার আউটপুট আলাদা ভেরিয়েবলে রেখে প্রিন্ট
+double = lambda x: x * 2
+
+double_result = double(5)  # রিটার্ন করা মানটি double_result ভেরিয়েবলে রাখা হলো
+print(double_result)       # আউটপুট: 10
+
+
+# ২. দুটি সংখ্যা যোগ করার আউটপুট আলাদা ভেরিয়েবলে রেখে প্রিন্ট
+add = lambda a, b: a + b
+
+sum_result = add(10, 20)   # রিটার্ন করা মানটি sum_result ভেরিয়েবলে রাখা হলো
+print(sum_result)          # আউটপুট: 30
+
+
+# ৩. মেসেজ রিটার্নের আউটপুট আলাদা ভেরিয়েবলে রেখে প্রিন্ট
+say_hello = lambda: "Hello, Backend Developer!"
+
+greeting_message = say_hello()  # রিটার্ন করা টেক্সটটি greeting_message ভেরিয়েবলে রাখা হলো
+print(greeting_message)         # আউটপুট: Hello, Backend Developer!
+
+
+
+
+
+পাইথনে lambda ফাংশনের একটি মূল নিয়ম হলো: কোলনের (:) ডানের এক্সপ্রেশনটি সব সময় একবারে ইমপ্লিসিটলি (স্বয়ংক্রিয়ভাবে) রিটার্ন হয়।
+ল্যাম্বডার ভেতরে আলাদা করে return লেখার কোনো সুযোগই নেই।
+
+তবে সমস্যাটা হয় তখন, যখন ল্যাম্বডার ভেতরে এমন কোনো অপারেশন চালানো হয় যা
+নিজে কিছু রিটার্ন করে না (None দেয়), বরং ইন-প্লেস (In-place) অবজেক্ট পরিবর্তন করে।
+
+নিচে ৩টি প্রধান জায়গা উদাহরণসহ দেওয়া হলো, যেখানে ল্যাম্বডা সরাসরি আশা করা
+ডাটা রিটার্ন করতে পারে না এবং কীভাবে ভেরিয়েবলে রেখে বা অল্টারনেটিভ পদ্ধতি ব্যবহার করতে হয়:
+
+
+
+১. ইন-প্লেস লিস্ট মেথড (.append(), .sort(), .reverse())
+লিস্টের মেথডগুলো অরিজিনাল লিস্টকে মিউটেট (পরিবর্তন) করে কিন্তু নিজেরা None রিটার্ন করে। তাই ল্যাম্বডার ভেতরে এগুলো সরাসরি ব্যবহার করলে আউটপুট None আসবে।
+
+
+# ❌ ভুল পদ্ধতি: .append() নিজে None রিটার্ন করে
+add_element = lambda lst, item: lst.append(item)
+
+result = add_element([1, 2, 3], 4)
+print(result) # আউটপুট: None (কারণ .append() কিছু রিটার্ন করে না)
+
+
+# ✅ সঠিক পদ্ধতি (১): কনক্যাটেনেশন (+) ব্যবহার করে একবারে নতুন লিস্ট রিটার্ন করা
+add_element_correct = lambda lst, item: lst + [item]
+
+new_list = add_element_correct([1, 2, 3], 4)
+print(new_list) # আউটপুট: [1, 2, 3, 4]
+
+
+# ✅ সঠিক পদ্ধতি (২): সাধারণ ফাংশনে অরিজিনাল ভেরিয়েবল পরিবর্তন করে সেটাকে রিটার্ন করা
+def add_element_func(lst, item):
+    lst.append(item) # মিউটেশন
+    return lst       # স্পষ্ট রিটার্ন
+
+updated_list = add_element_func([1, 2, 3], 4)
+print(updated_list) # আউটপুট: [1, 2, 3, 4]
+
+
+
+
+২. সেট বা ডিকশনারি আপডেট (.update(), .add())
+ডিকশনারি ও সেটের ডাটা মডিফাই করার মেথডগুলোও None রিটার্ন করে।
+
+
+# ❌ ভুল পদ্ধতি: .update() নিজে None রিটার্ন করে
+update_dict = lambda d, k, v: d.update({k: v})
+
+result = update_dict({"name": "Abdulla"}, "role", "Backend Dev")
+print(result) # আউটপুট: None
+
+
+# ✅ সঠিক পদ্ধতি: ডিকশনারি আনপ্যাকিং (| অপারেটর বা **) দিয়ে রিটার্ন করা
+update_dict_correct = lambda d, k, v: d | {k: v}
+
+my_dict = update_dict_correct({"name": "Abdulla"}, "role", "Backend Dev")
+print(my_dict) # আউটপুট: {'name': 'Abdulla', 'role': 'Backend Dev'}
+
+
+
+
+৩. স্টেটমেন্ট বা এসাইনমেন্ট কন্ডিশন (= বা print())
+ল্যাম্বডার কোলনের পরে শুধু single expression বসানো যায়, কোনো assignment statement (যেমন x = 5) বা print() বসানো হলে কাঙ্ক্ষিত ডাটা রিটার্ন হয় না।
+
+
+
+# ❌ ভুল পদ্ধতি: print() নিজে একটি ফাংশন যা None রিটার্ন করে
+custom_log = lambda msg: print(f"[LOG]: {msg}")
+
+result = custom_log("Server started")
+# কনসোলে আসবে: [LOG]: Server started
+print(result) # আউটপুট: None
+
+
+# ✅ সঠিক পদ্ধতি: কেবল স্ট্রিং ফরম্যাট বানিয়ে রিটার্ন করা এবং বাইরে ভেরিয়েবলে রেখে প্রিন্ট করা
+format_log = lambda msg: f"[LOG]: {msg}"
+
+log_message = format_log("Server started") # রিটার্ন করা টেক্সট ভেরিয়েবলে রাখা হলো
+print(log_message) # আউটপুট: [LOG]: Server started
+
+
+
+
+
+
 # ১. ফাংশন ডিফাইন করা
 def variable_name():
   x = 10
@@ -115,11 +256,6 @@ print("Calculated Sum:", result)  # Output: 15
 
 final_value = result * 2
 print("Multiplied Result:", final_value)  # Output: 30
-
-
-
-
-
 
 
 
