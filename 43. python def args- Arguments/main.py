@@ -257,37 +257,62 @@ def sum_number(*args):
     total = 0
     for num in args:
         total += num
-        return total
+    return total
         
 print(sum_number(10, 5))
 
 লাইন ১: def sum_number(*args):
+
 পাইথন sum_number নামের ফাংশনটি ডিফাইন করে এবং মেমোরিতে সেভ করে রাখে।
 
 লাইন ৭: print(sum_number(10, 5))
+
 পাইথন যখন এই লাইনটিতে আসে, তখন সে sum_number ফাংশনটিকে কল করে এবং এর মধ্যে আর্গুমেন্ট হিসেবে 10 এবং 5 পাঠায়।
+
 এই মানগুলো প্যাক হয়ে args টুপল তৈরি করে, যেখানে মান থাকে (10, 5)।
 
 লাইন ২: total = 0
+
 ফাংশনের ভেতরে প্রবেশ করার পর total নামের একটি ভেরিয়েবল তৈরি হয় এবং এর মান সেট হয় 0।
 
 লাইন ৩: for num in args:
+
 লুপ শুরু হয় এবং args টুপল থেকে প্রথম মানটি নিয়ে কাজ শুরু করে।
+
 এখানে প্রথম মানটির জন্য num ভেরিয়েবলের মান হয় 10।
 
 লাইন ৪: total += numtotal এর বর্তমান মান (0) এর সাথে num এর মান (10) যোগ করা হয়।
+
 যোগফল হিসাব করে total এর নতুন মান হয় 10।
 
 লাইন ৫: return total
+
 কোড এই লাইনে পৌঁছানোর সাথে সাথে পাইথন বুঝতে পারে যে ফাংশন থেকে মান রিটার্ন করতে হবে।
+
 তখন পাইথন total এর মান অর্থাৎ 10 কে ফাংশনের বাইরে পাঠিয়ে দেয় এবং সাথে সাথে ফাংশনটির কাজ চিরতরে বন্ধ করে দেয়।
 
 লুপের বাকি অংশ (দ্বিতীয় উপাদান 5 এর জন্য লুপ ঘোরার কথা ছিল):
+
 যেহেতু আগের লাইনে return হওয়ার কারণে ফাংশন আগেই বন্ধ হয়ে গেছে, তাই num এর মান যখন 5 হওয়ার কথা ছিল,
+
 সেই পর্যন্ত কোড আর পৌঁছাতেই পারেনি। ফলে দ্বিতীয় সংখ্যাটি সম্পূর্ণ বাদ পড়ে গেছে।
 
 লাইন ৭ এর শেষ অংশ: print(...)
+
 ফাংশন থেকে রিটার্ন হওয়া 10 সংখ্যাটি বাইরে এসে প্রিন্ট ফাংশনের মাধ্যমে কনসোলে বা স্ক্রিনে প্রদর্শিত হয়।
+
+
+def multiply_numbers(*numbers):
+    product = 1  # এটি ফাংশনের লোকাল ভেরিয়েবল (গুণফলের জন্য ১ নিতে হয়)
+    
+    for n in numbers:
+        product *= n
+        # এখানে return দিলে লুপ প্রথমবারেই ভেঙে যেত!
+        
+    return product  # সব গুণ শেষ হওয়ার পর ফাংশন থেকে মান বের হচ্ছে
+
+ans = multiply_numbers(2, 3, 4)
+print("Total Multiplication:", ans) # আউটপুট: 24
 
 
 
@@ -311,10 +336,13 @@ user_profile("Abdullah", "Python", "FastApi", "Backend", "Docker")
 
 
 লাইন ১: def user_profile(user_name, *args):
+
 পাইথন user_profile নামের ফাংশনটিকে ডিফাইন করে। এখানে দুটি প্যারামিটার সেট করা আছে—
+
 একটি হলো সাধারণ প্যারামিটার user_name এবং অন্যটি ভেরিয়েবল-লেন্থ আর্গুমেন্টের জন্য *args।
 
 লাইন ৬: user_profile("Abdullah", "Python", "FastApi", "Backend", "Docker")
+
 কোডের নিচে যখন এই লাইনটি রান হয়, তখন পাইথন user_profile ফাংশনটিকে কল করে এবং ভেতরকার মানগুলোকে দুই ভাগে ভাগ করে নেয়:
 
 প্রথম মানটি অর্থাৎ "Abdullah" চলে যায় প্রথম প্যারামিটার user_name এর ঘরে।
@@ -351,6 +379,7 @@ def multiply(a, b, c):
 numbers = [2, 3, 4]
 
 # যদি আমরা সরাসরি multiply(numbers দিই, পাইথন এরর দেবে। 
+
 # কিন্তু সামনে একটি স্টার (*) দিয়ে দিলে পাইথন লিস্টটি ভেঙে আলাদা আলাদা মান হিসেবে পাঠিয়ে দেবে:
 
 result = multiply(*numbers)  # এটি আসলে multiply(2, 3, 4) এর সমান কাজ করে
@@ -372,11 +401,13 @@ print("Multiplication Result:", result)
 লাইন ১: def multiply(a, b, c):
 
 কাজ: পাইথনকে বলে দেওয়া হচ্ছে যে multiply নামের একটি ফাংশন তৈরি করা হচ্ছে। 
+
 এই ফাংশনটির ভেতরে মোট তিনটি প্যারামিটার বা ইনপুট নেওয়ার জায়গা রাখা হয়েছে, যেগুলোর নাম দেওয়া হয়েছে a, b এবং c।
 
 লাইন ২:     return a * b * c
 
 কাজ: ফাংশনের ভেতরে প্রবেশ করার পর, a, b এবং c এই তিনটি মানকে একে অপরের সাথে গুণ (*) করা হয়। 
+
 গুণ করার পর যে ফলাফলটি আসে, return কিওয়ার্ডের মাধ্যমে সেটি ফাংশনের বাইরে ফেরত বা পাস করে দেওয়া হয়।
 
 লাইন ৪: numbers = [2, 3, 4]
@@ -399,7 +430,9 @@ print("Multiplication Result:", result)
 
 
 ১. numbers = [2, 3, 4] লিস্টটি গ্লোবাল ভেরিয়েবলে ছিল।
-২. যখন আপনি multiply(*numbers) লিখেছেন, তখন * অপারেটরটি লিস্টটিকে আনপ্যাক (unpack) বা ভেঙে ফেলেছে।
+
+২. যখন multiply(*numbers) লিখেছেন, তখন * অপারেটরটি লিস্টটিকে আনপ্যাক (unpack) বা ভেঙে ফেলেছে।
+
 ৩. ফলে লিস্টের ভেতর থেকে উপাদানগুলো বেরিয়ে এসে আলাদা আলাদাভাবে a = 2, b = 3, এবং c = 4 হিসেবে ফাংশনের ভেতরে পাস হয়েছে।
 
 অর্থাৎ, পুরো লিস্টটি একসাথে না গিয়ে এর ভেতরের সংখ্যাগুলো আলাদা হয়ে তিন ভাগে ভাগ হয়ে গেছে।
@@ -423,6 +456,7 @@ print_letters(*letters)
 
 
 লাইন ১: def print_letters(first, second, third):
+
 পাইথন মেমোরিতে print_letters নামের একটি ফাংশন ডিফাইন করে। এই ফাংশনের ভেতরে ইনপুট নেওয়ার জন্য তিনটি প্যারামিটার (first, second, third) প্রস্তুত রাখা হয়।
 
 লাইন ২, ৩ ও ৪:print("First:", first)
@@ -498,6 +532,92 @@ Addition Result: 60
 
 
 
+স্ট্রিং বা নাম আনপ্যাকিং (Full Name তৈরি)
+
+যখন একটি লিস্টে নামের প্রথম, মাঝের এবং শেষ অংশ আলাদাভাবে রাখা থাকে।
+
+
+
+def format_full_name(first, middle, last):
+    return f"Full Name: {first} {middle} {last}"
+
+name_parts = ["Mohammad", "Abdullah", "Aziz"]
+
+# *name_parts লিস্ট ভেঙে ৩টি আলাদা স্ট্রিং পাঠাচ্ছে
+full_name = format_full_name(*name_parts)
+print(full_name)
+
+মেমোরি ট্রেস: *name_parts রূপান্তরিত হয়ে format_full_name("Mohammad", "Abdullah", "Aziz") কল করে।
+
+ফলে first = "Mohammad", middle = "Abdullah", এবং last = "Aziz" সেট হয়।
+
+আউটপুট: Full Name: Mohammad Abdullah Aziz
+
+
+
+
+
+
+
+জ্যামিতিক হিসাব (আয়তক্ষেত্রের আয়তন বা Volume নির্ণয়)
+
+দৈর্ঘ্য, প্রস্থ এবং উচ্চতা একটি লিস্টে থাকলে কীভাবে ফাংশনে পাঠাবেন।
+
+
+def calculate_volume(length, width, height):
+    volume = length * width * height
+    return volume
+
+box_dimensions = [10, 5, 2]
+
+# লিস্টের ৩টি সংখ্যা যথাক্রমে length, width, height-এ বসবে
+total_volume = calculate_volume(*box_dimensions)
+print("Box Volume:", total_volume)
+
+
+
+
+ডিকশনারি আনপ্যাকিং (** ডাবল স্টার — বোনাস কনসেপ্ট!)
+লিস্টের জন্য যেমন সিঙ্গেল স্টার (*) ব্যবহার হয়, তেমনি পাইথনে ডিকশনারি (Dictionary) আনপ্যাক করে প্যারামিটারের নামের সাথে মিলিয়ে পাঠাতে ডাবল স্টার (**) ব্যবহার হয়।
+ব্যাকএন্ড ডেভেলপমেন্টে (যেমন FastAPI বা ডাটাবেস কুয়েরিতে) এটি সবচেয়ে বেশি কাজে লাগে!
+
+
+
+def create_user(username, role, country):
+    print(f"User: {username} | Role: {role} | Country: {country}")
+
+user_info = {
+    "username": "abdullah_dev",
+    "role": "Backend Engineer",
+    "country": "Bangladesh"
+}
+
+# ** ডিকশনারির key-value পেয়ারগুলো ভেঙে প্যারামিটারে বসিয়ে দেয়
+create_user(**user_info)
+
+
+
+
+
+
+
+ডিসকাউন্ট বা প্রাইস ক্যালকুলেশন (ব্যাকএন্ড ই-কমার্স লজিক)
+
+পণ্যের আসল দাম এবং ডিসকাউন্ট পার্সেন্টেজ একটি টুপল (Tuple) বা লিস্ট থেকে আনপ্যাক করে ফাইনাল দাম বের করা
+
+def final_price(price, discount_percent, tax):
+    discounted = price - (price * discount_percent / 100)
+    return discounted + tax
+
+product_data = (1000, 15, 50) # এখানে Tuple ব্যবহার করা হয়েছে
+
+# Tuple-ও লিস্টের মতোই * দিয়ে আনপ্যাক হয়
+payable = final_price(*product_data)
+print("Payable Amount:", payable)
+
+
+
+
 
 
 def show_position(x, y, z):
@@ -543,6 +663,7 @@ X-axis: 100, Y-axis: 250, Z-axis: 50
 
 
 অবস্থান বা সিকোয়েন্স (Position Rule)
+
 ফাংশন ডিফাইন করার সময় পজিশনাল প্যারামিটার এবং *args-এর ক্রম বা সিরিয়াল ঠিক রাখা জরুরি:
 
 # সঠিক পদ্ধতি:
@@ -972,7 +1093,7 @@ print("Subtraction:", sub_numbers(50, 10, 5))
 
 ফলে স্ক্রিনে বা কনসোলে প্রিন্ট হয়ে দেখায়:
 
-Plaintext
+
 Subtraction: 35
 
 
@@ -983,6 +1104,7 @@ Subtraction: 35
 
 
 ৩. শুধু গুণ করার জন্য (*) *args
+
 যতগুলো সংখ্যা দেওয়া হবে, তাদের সবার গুণফল বের করার কোড:
 
 
