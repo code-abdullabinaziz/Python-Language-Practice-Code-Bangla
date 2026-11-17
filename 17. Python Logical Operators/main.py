@@ -306,6 +306,11 @@ else:
 
 
 
+
+
+
+
+
 শর্ট-সার্কিট ইভ্যালুয়েশন (Short-Circuit):
 
 # and-এ প্রথম শর্ত যদি False হয়, বাকি শর্ত চেক করা হয় না
@@ -327,11 +332,113 @@ print(result)  # False
 # False
 
 
+প্রথম ফাংশন তৈরি (def check_first()):
+
+কম্পিউটার মেমোরিতে check_first নামের একটি ফাংশন টেমপ্লেট রেজিস্টার করে রাখল। এই মুহূর্তে ফাংশনের ভেতরের কোড রান হয়নি, কারণ এটি শুধু তৈরি করা হয়েছে।
+
+দ্বিতীয় ফাংশন তৈরি (def check_second()):
+
+একইভাবে, মেমোরিতে check_second নামের আরেকটি ফাংশন টেমপ্লেট রেজিস্টার করে রাখল।
+
+মূল কোড এক্সিকিউশন শুরু (result = check_first() and check_second()):
+
+পাইথন যখন এই লাইনটি রান করতে আসল, তখন সে মাঝখানের and অপারেটরের বাম পাশ আগে দেখতে গেল।
+
+বাম পাশে পেল check_first() ফাংশন কল। কম্পিউটার সাথে সাথে ওই ফাংশনের ভেতরে ঢুকে গেল।
+
+প্রথম ফাংশনের ভেতরের কাজ:
+
+check_first() এর ভেতরে ঢুকে কম্পিউটার প্রথম লাইন পেল: print("Checking first condition")
+
+ফলে কনসোলে সাথে সাথে প্রিন্ট হলো: Checking first condition
+
+এরপর দ্বিতীয় লাইনে পেল: return False
+
+ফাংশনটি কাজ শেষ করে False মানটি রিটার্ন করে বন্ধ হয়ে গেল। এখন check_first() এর জায়গায় মান বসে গেল False।
+
+and অপারেটরের শর্ট-সার্কিট ম্যাজিক (সবচেয়ে গুরুত্বপূর্ণ পয়েন্ট):
+
+এখন এক্সপ্রেশনটি দেখতে এমন দাঁড়িয়েছে: result = False and check_second()
+
+এখানে পাইথনের and অপারেটরের মূল নিয়মটি কাজ করল: and এর বাম পাশ যদি একবার False হয়ে যায়, তবে পাইথন আর ডান দিকে তাকায়ই না!
+
+কারণ পাইথন ভালো করেই জানে যে and-এর একটি শর্তও যদি মিথ্যা হয়, তবে ডান পাশের মান যাই হোক না কেন চূড়ান্ত ফলাফল চিরতরে False-ই হবে।
+
+এই কারণে পাইথন মাঝপথেই থেমে গেল এবং ডান দিকের check_second() ফাংশনটিকে আর কলই করল না! (এ কারণেই "Checking second condition" লেখাটি প্রিন্ট হয়নি)।
+
+ফলাফল ভেরিয়েবলে জমা:
+
+শর্ট-সার্কিটের মাধ্যমে চূড়ান্ত ফলাফল হিসেবে False মানটি বেরিয়ে এসে ডান পাশের
+
+result ভেরিয়েবলে জমা হলো result = False
+
+চূড়ান্ত প্রিন্ট (print(result)):
+
+সবার শেষের লাইনটি result-এর মান অর্থাৎ False স্ক্রিনে প্রিন্ট করে দিল।
+
+
+
+
+def check_admin():
+    print("Checking admin rights...")
+    return True
+
+def check_guest():
+    print("Checking guest status...")
+    return False
+
+result = check_admin() or check_guest()
+
+print("Final Result:", result)
+
+ফাংশন ডিফিনিশন:
+
+কম্পিউটার মেমোরিতে check_admin এবং check_guest নামের দুটি ফাংশন টেমপ্লেট সেভ করে রাখল।
+
+মূল কোড এক্সিকিউশন শুরু (result = check_admin() or check_guest()):
+
+পাইথন যখন লাইনটি চালাতে শুরু করল, তখন সে মাঝখানের or অপারেটরের বাম পাশ আগে দেখতে গেল।
+
+বাম পাশে পেল check_admin() ফাংশন কল। কম্পিউটার সাথে সাথে ওই ফাংশনের ভেতরে ঢুকে গেল।
+
+প্রথম ফাংশনের ভেتরের কাজ (check_admin):
+
+ভেতরে ঢুকে প্রথম লাইন পেল: print("Checking admin rights...")
+
+ফলে কনসোলে সাথে সাথে প্রিন্ট হলো: Checking admin rights...
+
+এরপর দ্বিতীয় লাইনে পেল: return True
+
+ফাংশনটি কাজ শেষ করে True মানটি রিটার্ন করে বন্ধ হয়ে গেল। এখন check_admin() এর জায়গায় মান বসে গেল True।
+
+or অপারেটরের শর্ট-সার্কিট ম্যাজিক (সবচেয়ে গুরুত্বপূর্ণ পয়েন্ট):
+
+এখন এক্সপ্রেশনটি দেখতে এমন দাঁড়িয়েছে: result = True or check_guest()
+
+এখানে পাইথনের or অপারেটরের মূল নিয়মটি কাজ করল: or এর বাম পাশ যদি একবার True হয়ে যায়, তবে পাইথন আর ডান দিকে তাকায়ই না!
+
+কারণ পাইথন ভালো করেই জানে যে or-এর যেকোনো একটি শর্ত সত্য হলেই চূড়ান্ত ফলাফল নিশ্চিতভাবেই True হবে।
+
+এই কারণে পাইথন মাঝপথেই থেমে গেল এবং ডান দিকের check_guest() ফাংশনটিকে আর কলই করল না!
+(এ কারণেই "Checking guest status..." লেখাটি কখনোই প্রিন্ট হবে না)।
+
+ফলাফল ভেরিয়েবলে জমা:
+
+শর্ট-সার্কিটের মাধ্যমে চূড়ান্ত ফলাফল হিসেবে True মানটি বেরিয়ে এসে ডান পাশের
+
+
+result ভেরিয়েবলে জমা হলো result = True
+
+চূড়ান্ত প্রিন্ট (print("Final Result:", result)):সবার শেষের লাইনটি প্রিন্ট করল: Final Result: True
+
+
+
 
 
 রিয়েল-ওয়ার্ল্ড উদাহরণ:
 
 # ইউজার লগইন ভ্যালিডেশন
+
 username = "admin"
 password = "secret123"
 is_active = True
@@ -341,19 +448,89 @@ if username == "admin" and password == "secret123" and is_active:
 else:
     print("Invalid credentials")
 
+
+
+
+
+
+
 # ই-কমার্স: অর্ডার প্লেস করা যাবে কিনা
+
 product_price = 500
+
 user_balance = 1000
+
 stock_available = 10
-user_is_verified = True
 
-if user_balance >= product_price and stock_available > 0 and user_is_verified:
-    print("Order placed successfully!")
-    user_balance -= product_price
-    stock_available -= 1
+user_verified = True
+
+
+if user_balance >= product_price and stock_available > 0 and user_verified:
+  
+  print("Order placed successfully!")
+  
+  user_balance -= product_price
+  
+  stock_available -= 1
+  
 else:
-    print("Cannot place order. Check balance, stock, or verification.")
+  print("Cannot place order. Check balance, stock, or verification.")
+  
 
+ই-কমার্স অর্ডার প্রসেসিং কোডের লাইন-বাই-লাইন ড্রাই রান:
+
+১. ভ্যারিয়েবল ইনিশিয়ালাইজেশন (Initial Values):
+
+product_price = 500 (পণ্যের দাম ৫০০ টাকা)
+
+user_balance = 1000 (ইউজারের অ্যাকাউন্টে ১০০০ টাকা আছে)
+
+stock_available = 10 (দাকানে বা স্টকে ১০টি পণ্য আছে)
+
+user_verified = True (ইউজার ভেরিফাইড বা আসল মানুষ)
+
+২. মূল শর্ত যাচাই (if কন্ডিশন):
+
+এক্সপ্রেশনটি হলো: (user_balance >= product_price) and (stock_available > 0) and (user_verified)
+
+মানগুলো বসালে দাঁড়ায়: (1000 >= 500) and (10 > 0) and (True)
+
+ধাপে ধাপে যাচাই:
+
+1000 >= 500 মানে হলো True (ব্যালেন্স যথেষ্ট আছে)
+
+10 > 0 মানে হলো True (স্টকে পণ্য আছে)
+
+user_verified মানে হলো True (ইউজার ভেরিফাইড)
+
+and অপারেটরের নিয়ম অনুযায়ী সবকটি শর্তই True হয়েছে। তাই if ব্লকের ভেতরের কোড রান করবে।
+
+৩. অর্ডার সফল বার্তা প্রিন্ট:
+
+কনসোলে প্রিন্ট হবে: Order placed successfully!
+
+৪. শেষের দুটি গুরুত্বপূর্ণ লাইনের কাজ (user_balance -= product_price ও stock_available -= 1):
+অর্ডার সফল হওয়ার পর ডাটাবেজে ব্যালেন্স এবং স্টক আপডেট করার এই লাইন দুটি ঠিক যেভাবে কাজ করে:
+
+প্রথম লাইন: user_balance -= product_price
+
+এটি আসলে শর্টহ্যান্ড বা সংক্ষিপ্ত রূপ। এর পূর্ণরূপ হলো: user_balance = user_balance - product_price
+
+মেমোরিতে হিসাব: ইউজারের আগের ব্যালেন্স ছিল 1000, আর পণ্যের দাম 500।
+
+সুতরাং, 1000 - 500 হিসাব করে মান হলো 500।
+
+এই নতুন 500 মানটি আবার user_balance ভেরিয়েবলে গিয়ে জমা হলো। অর্থাৎ, অর্ডার কাটার পর ইউজারের ওয়ালেটে এখন ব্যালেন্স বাকি রইল ৫০০ টাকা।
+
+দ্বিতীয় লাইন: stock_available -= 1
+
+এটিও সংক্ষিপ্ত রূপ। এর পূর্ণরূপ হলো: stock_available = stock_available - 1
+
+মেমোরিতে হিসাব: স্টকে আগের পণ্য ছিল 10টি, আর একটি বিক্রি হয়ে গেছে।
+
+সুতরাং, 10 - 1 হিসাব করে মান হলো 9।
+
+এই নতুন 9 মানটি stock_available ভেরিয়েবলে গিয়ে জমা হলো। অর্থাৎ, দোকান বা স্টকে এখন পণ্য বাকি রইল ৯টি।
 
 
 
@@ -369,6 +546,7 @@ or অপারেটরের দুই পাশের শর্তগুল�
 দুটি শর্তই মিথ্যা হলে কেবল তখনই ফলাফল False হয়।
 
 # OR এর ট্রুথ টেবিল
+    
 print(True or True)   # True
 print(True or False)  # True
 print(False or True)  # True
@@ -377,11 +555,14 @@ print(False or False) # False
 
 
 # vacancies: জব পাওয়ার জন্য সিএসই ডিগ্রি অথবা ৩ বছরের অভিজ্ঞতা দরকার
+    
 has_cse_degree = False
 has_experience = True
 
 got_job = has_cse_degree or has_experience
+
 print("জব পাবেন কি না? :", got_job)  # Output: True (কারণ অভিজ্ঞতা আছে, ১টি শর্ত মিলেছে)
+
 
 
 
@@ -394,6 +575,7 @@ age = 25
 gets_discount = is_student or (age > 60)
 
 print("Gets Bus Discount:", gets_discount)        Gets Bus Discount: True
+
 (ব্যাখ্যা: বয়স ৬০-এর বেশি না হলেও তিনি একজন ছাত্র, তাই ১টি শর্ত মিলে যাওয়ায় উত্তর এসেছে True)
 
 
@@ -437,6 +619,7 @@ print("Can Watch Game:", can_watch_game)  Can Watch Game: True
 খাবারের বিলে ছাড় পাবেন যদি কাছে কুপন কোড থাকে অথবা মেম্বারশিপ কার্ড থাকে।
 
 has_coupon = True
+
 has_membership_card = False
 
 gets_discount = has_coupon or has_membership_card
@@ -453,11 +636,14 @@ has_fingerprint = False
 door_opens = has_id_card or has_fingerprint
 
 print("Door Opens Output:", door_opens) Door Opens Output: False
+
 (ব্যাখ্যা: কার্ডও নেই, ফিঙ্গারপ্রিন্টও ম্যাচ করেনি—দুটোই False হওয়ায় দরজা খুলবে না)
 
 
 
-আপনি জামাটি কিনবেন যদি জামাটির রঙ নীল (blue) হয় অথবা কালো (black) হয়।
+
+
+জামাটি যদি জামাটির রঙ নীল (blue) হয় অথবা কালো (black) হয়।
 
 shirt_color = "blue"
 
@@ -494,6 +680,9 @@ else:
 
 
 
+
+
+
 শর্ট-সার্কিট ইভ্যালুয়েশন (OR):
 
 # or-এ প্রথম শর্ত যদি True হয়, বাকি শর্ত চেক করা হয় না
@@ -515,6 +704,65 @@ print(result)  # True
 # True
 
 
+এখানে ফাংশন দুটিতে আর্গুমেন্ট হিসেবে বাইরে থেকে কোনো মান পাঠানো হয়নি (ব্র্যাকেট একদম ফাঁকা রাখা হয়েছে)।
+
+এই কোডে কোন ফাংশনটি রান করবে এবং চূড়ান্ত ফলাফল কী আসবে, তা পুরোপুরি নির্ভর করছে ফাংশনগুলোর return করা মান (True বা False) এবং পাইথনের or অপারেটরের শর্ট-সার্কিট নিয়মের ওপর।
+
+চলুন, কোডটি লাইন বাই লাইন ড্রাই রান করে দেখি এখানে ঠিক কী ঘটছে:
+
+কোডটির লাইন-বাই-লাইন ড্রাই রান (Dry Run):
+১. ফাংশন ডিফিনিশন:
+
+পাইথন মেমোরিতে expensive_operation এবং quick_check নামের দুটি ফাংশন সেভ করে রাখল।
+
+২. মূল এক্সপ্রেশন শুরু:
+
+result = quick_check() or expensive_operation()
+
+এখানে সবার আগে বাম পাশের quick_check() ফাংশনটি কল হলো।
+
+৩. quick_check() এর ভেতরকার কাজ:
+
+ফাংশনের ভেতরে ঢুকে প্রথম লাইন প্রিন্ট করল: Quick check
+
+দ্বিতীয় লাইনে গিয়ে এটি রিটার্ন করল: return True
+
+অর্থাৎ, quick_check() ফাংশনটির কাজ শেষ এবং এর জায়গায় মান বসে গেল True।
+
+৪. or অপারেটরের শর্ট-সার্কিট ম্যাজিক:
+
+এখন এক্সপ্রেশনটি দেখতে এমন দাঁড়িয়েছে: result = True or expensive_operation()
+
+এখানে পাইথনের or অপারেটরের মূল নিয়মটি কাজ করল: or এর বাম পাশ যদি একবার True হয়ে যায়, তবে পাইথন আর ডান দিকে তাকায়ই না!
+
+কারণ or-এর ক্ষেত্রে একটি সত্য পেলেই পুরো ফলাফল নিশ্চিতভাবে True হয়ে যায়।
+
+এই কারণে পাইথন মাঝপথেই থেমে গেল এবং ডান দিকের expensive_operation() ফাংশনটিকে আর কলই করল না! 
+
+(এ কারণেই "Running expensive operation..." লেখাটি কখনোই প্রিন্ট হবে না)।
+
+৫. চূড়ান্ত ফলাফল ও প্রিন্ট:
+
+শর্ট-সার্কিটের কারণে চূড়ান্ত ফলাফল হিসেবে True মানটি বেরিয়ে এসে result ভেরিয়েবলে জমা হলো।
+
+সবার শেষের print(result) লাইনটি স্ক্রিনে প্রিন্ট করল: True
+
+কনসোলে ফাইনাল আউটপুট:
+Plaintext
+Quick check
+True
+
+
+
+
+
+
+
+
+
+
+
+
 
 রিয়েল-ওয়ার্ল্ড উদাহরণ:
 
@@ -531,7 +779,7 @@ else:
     print("No discount available")
 
 # ফোন নম্বর ভ্যালিডেশন
-phone = "01712345678"
+phone = "01568451112"
 email = "user@example.com"
 
 if phone or email:
@@ -566,6 +814,7 @@ print(not False)  # True
 
 
 is_raining = False
+
 print("বাইরে যাব কি না? :", not is_raining)  # Output: True (বৃষ্টি হচ্ছে না, তাই যাব)
 
 
@@ -714,6 +963,8 @@ if not file_content:
 else:
     print("File has content")
 
+
+
 # খালি লিস্ট চেক
 cart = []
 
@@ -721,6 +972,8 @@ if not cart:
     print("Your cart is empty. Add items!")  # ✅
 else:
     print(f"You have {len(cart)} items in cart")
+
+
 
 # পারমিশন চেক
 has_admin_access = False
@@ -797,9 +1050,13 @@ z = True
 result = not x or y and z
 print(result)  # False
 
+
+
 # কিন্তু ব্র্যাকেট ব্যবহার করলে পরিষ্কার হয়
 result = (not x) or (y and z)
 print(result)  # False
+
+
 
 # ব্র্যাকেট পরিবর্তন করলে ফলাফল বদলায়
 result = not (x or y) and z
