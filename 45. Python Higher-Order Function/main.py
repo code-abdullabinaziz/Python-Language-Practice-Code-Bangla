@@ -105,3 +105,21 @@ Higher-Order Function: details (কারণ এটা প্যারামি�
 
 অর্থাৎ,  যখনই কোনো ফাংশনে কলব্যাক ফাংশন ব্যবহার করবেন, তখন সেই মূল ফাংশনটি নিজে থেকেই একটি Higher-Order Function-এ পরিণত হয়ে যায়!
 
+
+
+
+
+print_result = lambda result: print("Result is:", result)
+
+def add_number(a, b, callback):
+  sum = a + b
+  callback(sum)
+  
+add_number(5, 5, print_result)
+
+Higher-Order Function: add_Number (কারণ এটা আর্গুমেন্ট হিসেবে আরেকটা ফাংশন callback নিচ্ছে)।
+
+Callback Function: print_result (কারণ এটাকে আর্গুমেন্ট হিসেবে পাঠানো হয়েছে এবং ভেতর থেকে ডাকা হচ্ছে)।
+
+পাইথনের নামকরণের সাধারণ নিয়ম (PEP 8) অনুযায়ী ফাংশনের নাম ছোট হাতের অক্ষরে আন্ডারস্কোর দিয়ে লিখলে বেশি ভালো হয়
+(যেমন add_number), তবে add_Number লিখলেও কোড চলতে কোনো সমস্যা নেই।
