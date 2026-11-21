@@ -72,6 +72,29 @@ Processing data...
 Task finished successfully. 
 
 
+
+
+
+def my_intro(result):
+  print(f"Result is: {result}")
+
+
+def details(a, b, call):
+  total = a + b
+  call(total)
+
+
+details(5, 5, my_intro)
+
+
+Callback Function: my_intro (কারণ এটাকে আর্গুমেন্ট হিসেবে পাঠানো হয়েছে এবং ভেতর থেকে ডাকা হচ্ছে)।
+
+Higher-Order Function: details (কারণ এটা প্যারামিটার হিসেবে আরেকটা ফাংশন my_intro-কে নিচ্ছে)।
+
+
+
+    
+
 এটিকে "Higher-Order" বা উচ্চ-স্তরের বলার কারণ কী?
 
 সাধারণ প্রোগ্রামিংয়ে আমরা একটি ফাংশনে ডেটা হিসেবে পাঠাই সংখ্যা, টেক্সট, লিস্ট বা ডিকশনারি।
